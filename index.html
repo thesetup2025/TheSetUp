@@ -28,7 +28,6 @@
       font-family: 'Inter', sans-serif;
       font-weight: 300;
       overflow-x: hidden;
-      cursor: none;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
@@ -53,30 +52,6 @@
       inset: 0;
       pointer-events: none;
       z-index: 0;
-    }
-
-    /* ── CUSTOM CURSOR ───────────────────────────────────── */
-    .cur {
-      position: fixed;
-      top: 0; left: 0;
-      pointer-events: none;
-      z-index: 9000;
-      transform: translate(-50%, -50%);
-      will-change: left, top;
-    }
-
-    #c-dot .c-i {
-      width: 5px; height: 5px;
-      background: var(--tc);
-      border-radius: 50%;
-      transition: width .22s ease, height .22s ease;
-    }
-
-    #c-ring .c-i {
-      width: 34px; height: 34px;
-      border: 1px solid rgba(199,93,60,.32);
-      border-radius: 50%;
-      transition: width .3s ease, height .3s ease, border-color .3s ease;
     }
 
     /* ── HEADER ─────────────────────────────────────────── */
@@ -123,7 +98,7 @@
       letter-spacing: .22em;
       text-transform: uppercase;
       color: rgba(245,240,232,.25);
-      cursor: none;
+      cursor: pointer;
       padding: 0;
       line-height: 1;
       transition: color .35s ease;
@@ -318,7 +293,7 @@
       letter-spacing: .28em;
       text-transform: uppercase;
       padding: .5rem 0;
-      cursor: none;
+      cursor: pointer;
       transition: color .3s ease, border-color .3s ease;
     }
 
@@ -414,10 +389,7 @@
 
     /* ── RESPONSIVE ──────────────────────────────────────── */
     @media (max-width: 640px) {
-      body { cursor: auto; }
-      .cur { display: none; }
       header { padding: 1.5rem 5vw; }
-      .lang-btn, .send-btn { cursor: pointer; }
       footer { flex-direction: column; gap: .8rem; text-align: center; }
       .contact-info { gap: 2rem 3rem; }
       #concepts { padding: 18vh 5vw 14vh; }
@@ -429,10 +401,6 @@
 
 <!-- Particles -->
 <canvas id="cvs" aria-hidden="true"></canvas>
-
-<!-- Custom cursor (desktop) -->
-<div class="cur" id="c-dot"><div class="c-i"></div></div>
-<div class="cur" id="c-ring"><div class="c-i"></div></div>
 
 <!-- ── HEADER ────────────────────────────────── -->
 <header>
@@ -604,41 +572,6 @@ applyLang(lang);  /* apply on load */
 document.querySelectorAll('.lang-btn').forEach(btn => {
   btn.addEventListener('click', () => applyLang(btn.dataset.lang));
 });
-
-/* ════════════════════════════════════════════════════
-   CUSTOM CURSOR  (desktop only)
-   ════════════════════════════════════════════════════ */
-if (window.innerWidth > 640) {
-  const dot  = document.getElementById('c-dot');
-  const ring = document.getElementById('c-ring');
-  const dotI = dot.querySelector('.c-i');
-  const rinI = ring.querySelector('.c-i');
-  let mx = 0, my = 0, rx = 0, ry = 0;
-
-  document.addEventListener('mousemove', e => {
-    mx = e.clientX; my = e.clientY;
-    dot.style.left = mx + 'px';
-    dot.style.top  = my + 'px';
-  }, { passive: true });
-
-  (function tickRing() {
-    rx += (mx - rx) * .11;
-    ry += (my - ry) * .11;
-    ring.style.left = rx + 'px';
-    ring.style.top  = ry + 'px';
-    requestAnimationFrame(tickRing);
-  })();
-
-  const expand = 'width:12px;height:12px;';
-  const norm   = '';
-  const eRing  = 'width:50px;height:50px;border-color:rgba(199,93,60,.6);';
-  const nRing  = '';
-
-  document.querySelectorAll('a, button, .concept').forEach(el => {
-    el.addEventListener('mouseenter', () => { dotI.style.cssText = expand; rinI.style.cssText = eRing; });
-    el.addEventListener('mouseleave', () => { dotI.style.cssText = norm;   rinI.style.cssText = nRing; });
-  });
-}
 
 /* ════════════════════════════════════════════════════
    PARTICLES
