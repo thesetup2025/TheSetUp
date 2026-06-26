@@ -184,6 +184,9 @@
     .concept {
       padding: 11vh 0;
       border-top: 1px solid rgba(245,240,232,.05);
+      display: flex;
+      align-items: center;
+      gap: clamp(2.5rem, 6vw, 6rem);
     }
 
     .concept:last-child {
@@ -210,6 +213,29 @@
       font-size: .78rem;
       color: rgba(245,240,232,.22);
       letter-spacing: .04em;
+    }
+
+    .concept--flip { flex-direction: row-reverse; }
+
+    .concept-text { flex: 1; min-width: 0; }
+
+    .concept-img {
+      flex: 0 0 44%;
+      aspect-ratio: 3 / 2;
+      overflow: hidden;
+    }
+
+    .concept-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(100%) brightness(.62);
+      transition: filter .75s ease;
+      display: block;
+    }
+
+    .concept:hover .concept-img img {
+      filter: grayscale(15%) brightness(.85);
     }
 
     /* ── SOTOGRANDE ──────────────────────────────────────── */
@@ -388,6 +414,12 @@
     }
 
     /* ── RESPONSIVE ──────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .concept,
+      .concept--flip { flex-direction: column; }
+      .concept-img { flex: none; width: 100%; aspect-ratio: 16 / 9; }
+    }
+
     @media (max-width: 640px) {
       header { padding: 1.5rem 5vw; }
       footer { flex-direction: column; gap: .8rem; text-align: center; }
@@ -429,44 +461,72 @@
 <!-- ── CONCEPTS ───────────────────────────────── -->
 <section id="concepts" aria-label="Services">
 
+  <!-- 01 · imagen izquierda, texto derecha -->
   <article class="concept rv">
-    <span class="concept-n" aria-hidden="true">01</span>
-    <h2 class="concept-h"
-        data-en="Bespoke private events"
-        data-es="Eventos privados a medida">Bespoke private events</h2>
-    <p class="concept-note"
-       data-en="Designed from a single concept."
-       data-es="Diseñados desde un concepto único.">Designed from a single concept.</p>
+    <div class="concept-img">
+      <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&amp;h=534&amp;fit=crop&amp;q=80"
+           alt="" role="presentation" loading="lazy">
+    </div>
+    <div class="concept-text">
+      <span class="concept-n" aria-hidden="true">01</span>
+      <h2 class="concept-h"
+          data-en="Bespoke private events"
+          data-es="Eventos privados a medida">Bespoke private events</h2>
+      <p class="concept-note"
+         data-en="Designed from a single concept."
+         data-es="Diseñados desde un concepto único.">Designed from a single concept.</p>
+    </div>
   </article>
 
-  <article class="concept rv d1">
-    <span class="concept-n" aria-hidden="true">02</span>
-    <h2 class="concept-h"
-        data-en="Brand experiences"
-        data-es="Experiencias de marca">Brand experiences</h2>
-    <p class="concept-note"
-       data-en="Identity through emotion."
-       data-es="Identidad a través de la emoción.">Identity through emotion.</p>
+  <!-- 02 · texto izquierda, imagen derecha -->
+  <article class="concept concept--flip rv d1">
+    <div class="concept-img">
+      <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&amp;h=534&amp;fit=crop&amp;q=80"
+           alt="" role="presentation" loading="lazy">
+    </div>
+    <div class="concept-text">
+      <span class="concept-n" aria-hidden="true">02</span>
+      <h2 class="concept-h"
+          data-en="Brand experiences"
+          data-es="Experiencias de marca">Brand experiences</h2>
+      <p class="concept-note"
+         data-en="Identity through emotion."
+         data-es="Identidad a través de la emoción.">Identity through emotion.</p>
+    </div>
   </article>
 
+  <!-- 03 · imagen izquierda, texto derecha -->
   <article class="concept rv d2">
-    <span class="concept-n" aria-hidden="true">03</span>
-    <h2 class="concept-h"
-        data-en="Seasonal pop-ups"
-        data-es="Pop-ups estacionales">Seasonal pop-ups</h2>
-    <p class="concept-note"
-       data-en="Moments that outlast the season."
-       data-es="Momentos que van más allá de la temporada.">Moments that outlast the season.</p>
+    <div class="concept-img">
+      <img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=800&amp;h=534&amp;fit=crop&amp;q=80"
+           alt="" role="presentation" loading="lazy">
+    </div>
+    <div class="concept-text">
+      <span class="concept-n" aria-hidden="true">03</span>
+      <h2 class="concept-h"
+          data-en="Seasonal pop-ups"
+          data-es="Pop-ups estacionales">Seasonal pop-ups</h2>
+      <p class="concept-note"
+         data-en="Moments that outlast the season."
+         data-es="Momentos que van más allá de la temporada.">Moments that outlast the season.</p>
+    </div>
   </article>
 
-  <article class="concept rv d3">
-    <span class="concept-n" aria-hidden="true">04</span>
-    <h2 class="concept-h"
-        data-en="Creative direction"
-        data-es="Dirección creativa">Creative direction</h2>
-    <p class="concept-note"
-       data-en="Atmosphere, scenography, sensory design."
-       data-es="Atmósfera, escenografía, diseño sensorial.">Atmosphere, scenography, sensory design.</p>
+  <!-- 04 · texto izquierda, imagen derecha -->
+  <article class="concept concept--flip rv d3">
+    <div class="concept-img">
+      <img src="https://images.unsplash.com/photo-1487530811015-780780169993?w=800&amp;h=534&amp;fit=crop&amp;q=80"
+           alt="" role="presentation" loading="lazy">
+    </div>
+    <div class="concept-text">
+      <span class="concept-n" aria-hidden="true">04</span>
+      <h2 class="concept-h"
+          data-en="Creative direction"
+          data-es="Dirección creativa">Creative direction</h2>
+      <p class="concept-note"
+         data-en="Atmosphere, scenography, sensory design."
+         data-es="Atmósfera, escenografía, diseño sensorial.">Atmosphere, scenography, sensory design.</p>
+    </div>
   </article>
 
 </section>
