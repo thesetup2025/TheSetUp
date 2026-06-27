@@ -407,7 +407,7 @@
         animation-delay:    .01ms !important;
         transition-duration:.01ms !important;
       }
-      .rv { opacity: 1 !important; transform: none !important; }
+      .rv, .ag-rv, .ag-entry-rv { opacity: 1 !important; transform: none !important; filter: none !important; }
       .hero-title, .hero-rule, .hero-sub, .scroll-cue { opacity: 1 !important; }
       .wordmark { opacity: 1 !important; }
       #cvs { display: none; }
@@ -426,6 +426,264 @@
       .contact-info { gap: 2rem 3rem; }
       #concepts { padding: 18vh 5vw 14vh; }
       .concept { padding: 9vh 0; }
+    }
+
+    /* ── AFTERGLOW ───────────────────────────────────── */
+    #afterglow {
+      position: relative;
+      padding: 28vh 5vw 30vh;
+      overflow: hidden;
+      text-align: center;
+      isolation: isolate;
+    }
+
+    #afterglow::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 90% 50% at 50% 28%, rgba(199,93,60,.07), transparent 65%),
+        radial-gradient(ellipse 55% 32% at 50% 80%, rgba(199,93,60,.04), transparent 55%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .ag-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.5rem, 9vw, 11rem);
+      font-weight: 400;
+      letter-spacing: .1em;
+      line-height: 1;
+      text-shadow:
+        0 0 60px rgba(199,93,60,.38),
+        0 0 120px rgba(199,93,60,.12);
+    }
+
+    .ag-rule {
+      width: 1px;
+      height: 52px;
+      background: linear-gradient(to bottom, rgba(199,93,60,.65), transparent);
+      margin: 2.8rem auto;
+    }
+
+    .ag-tagline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1rem, 2.2vw, 1.6rem);
+      font-weight: 400;
+      font-style: italic;
+      color: rgba(245,240,232,.5);
+      line-height: 1.65;
+      max-width: 600px;
+      margin: 0 auto;
+      letter-spacing: .02em;
+    }
+
+    .ag-concept {
+      max-width: 540px;
+      margin: 12vh auto 0;
+    }
+
+    .ag-concept p {
+      font-size: .88rem;
+      color: rgba(245,240,232,.38);
+      line-height: 1.9;
+      letter-spacing: .03em;
+    }
+
+    .ag-steps {
+      display: flex;
+      justify-content: center;
+      gap: clamp(2rem, 5vw, 5rem);
+      margin: 14vh auto 0;
+      max-width: 860px;
+    }
+
+    .ag-step { flex: 1; min-width: 170px; max-width: 240px; }
+
+    .ag-step-n {
+      display: block;
+      font-size: .5rem;
+      letter-spacing: .35em;
+      color: var(--tc);
+      margin-bottom: 1.1rem;
+    }
+
+    .ag-step-h {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.05rem, 1.8vw, 1.35rem);
+      font-weight: 400;
+      color: var(--fg);
+      margin-bottom: .7rem;
+    }
+
+    .ag-step-note {
+      font-size: .73rem;
+      color: rgba(245,240,232,.27);
+      line-height: 1.65;
+    }
+
+    .ag-modalities {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      max-width: 1000px;
+      margin: 14vh auto 0;
+      background: rgba(245,240,232,.04);
+      border: 1px solid rgba(245,240,232,.05);
+    }
+
+    .ag-card {
+      background: var(--bg);
+      padding: 2.5rem 1.8rem 2.2rem;
+      cursor: pointer;
+      text-align: left;
+      border: 1px solid transparent;
+      outline: none;
+      transition: border-color .45s ease, box-shadow .45s ease, background .45s ease;
+      position: relative;
+    }
+
+    .ag-card:hover,
+    .ag-card:focus-visible {
+      background: rgba(199,93,60,.025);
+      border-color: rgba(199,93,60,.4);
+      box-shadow: 0 0 28px rgba(199,93,60,.09), inset 0 0 20px rgba(199,93,60,.04);
+      z-index: 1;
+    }
+
+    .ag-card.ag-selected {
+      background: rgba(199,93,60,.04);
+      border-color: var(--tc);
+      box-shadow: 0 0 40px rgba(199,93,60,.16), inset 0 0 26px rgba(199,93,60,.06);
+      z-index: 2;
+    }
+
+    .ag-card-n {
+      display: block;
+      font-size: .47rem;
+      letter-spacing: .28em;
+      color: rgba(199,93,60,.55);
+      margin-bottom: 1.3rem;
+    }
+
+    .ag-card-h {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(.95rem, 1.5vw, 1.2rem);
+      font-weight: 400;
+      color: var(--fg);
+      line-height: 1.2;
+      margin-bottom: .9rem;
+    }
+
+    .ag-card-desc {
+      font-size: .7rem;
+      color: rgba(245,240,232,.22);
+      line-height: 1.7;
+      transition: color .35s ease;
+    }
+
+    .ag-card:hover .ag-card-desc,
+    .ag-card.ag-selected .ag-card-desc { color: rgba(245,240,232,.44); }
+
+    .ag-secret {
+      margin: 16vh auto 0;
+      max-width: 480px;
+    }
+
+    .ag-secret-label {
+      font-size: .47rem;
+      letter-spacing: .32em;
+      text-transform: uppercase;
+      color: rgba(199,93,60,.48);
+      margin-bottom: 1.25rem;
+    }
+
+    .ag-coords {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.1rem, 2.5vw, 1.8rem);
+      font-weight: 400;
+      letter-spacing: .2em;
+      color: rgba(245,240,232,.18);
+      margin-bottom: 1.1rem;
+    }
+
+    .ag-redact-line {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: .55rem;
+      flex-wrap: wrap;
+      font-size: .78rem;
+      color: rgba(245,240,232,.14);
+      letter-spacing: .06em;
+    }
+
+    .ag-redact {
+      display: inline-block;
+      background: rgba(199,93,60,.72);
+      color: transparent;
+      border-radius: 1px;
+      padding: .08em .22em;
+      user-select: none;
+    }
+
+    .ag-cta { margin-top: 12vh; }
+
+    .ag-btn {
+      background: none;
+      border: 1px solid rgba(199,93,60,.32);
+      color: rgba(199,93,60,.82);
+      font-family: 'Inter', sans-serif;
+      font-size: .58rem;
+      font-weight: 400;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      padding: 1.1rem 3.5rem;
+      cursor: pointer;
+      transition: border-color .35s ease, color .35s ease, box-shadow .35s ease;
+    }
+
+    .ag-btn:hover {
+      border-color: rgba(199,93,60,.72);
+      color: var(--fg);
+      box-shadow: 0 0 22px rgba(199,93,60,.14);
+    }
+
+    .ag-btn:focus-visible {
+      outline: 1px solid rgba(199,93,60,.5);
+      outline-offset: 6px;
+    }
+
+    /* Afterglow reveal */
+    .ag-rv {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 1.4s ease, transform 1.4s ease;
+    }
+    .ag-rv.on { opacity: 1; transform: translateY(0); }
+    .ag-rv.d1 { transition-delay: .15s; }
+    .ag-rv.d2 { transition-delay: .32s; }
+    .ag-rv.d3 { transition-delay: .5s; }
+    .ag-rv.d4 { transition-delay: .68s; }
+
+    /* Title: emerge from darkness with blur dissolve */
+    .ag-entry-rv {
+      opacity: 0;
+      transform: scale(.985);
+      filter: blur(6px);
+      transition: opacity 2.2s ease, transform 2.2s ease, filter 2s ease;
+    }
+    .ag-entry-rv.on { opacity: 1; transform: scale(1); filter: blur(0); }
+
+    @media (max-width: 900px) {
+      .ag-modalities { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 640px) {
+      #afterglow { padding: 20vh 5vw 22vh; }
+      .ag-modalities { grid-template-columns: 1fr; max-width: 100%; }
+      .ag-steps { flex-direction: column; align-items: center; gap: 3.5rem; }
+      .ag-step { min-width: 0; max-width: 340px; width: 100%; }
     }
   </style>
 </head>
@@ -528,6 +786,121 @@
          data-es="Atmósfera, escenografía, diseño sensorial.">Atmosphere, scenography, sensory design.</p>
     </div>
   </article>
+
+</section>
+
+<!-- ── AFTERGLOW ─────────────────────────────── -->
+<section id="afterglow" aria-label="Afterglow">
+
+  <!-- 1 · Entrada -->
+  <div class="ag-entry-rv" id="ag-entry">
+    <h2 class="ag-title">Afterglow</h2>
+    <div class="ag-rule" aria-hidden="true"></div>
+    <p class="ag-tagline"
+       data-en="A secret place. One single night. An experience that never repeats."
+       data-es="Un lugar secreto. Una sola noche. Una experiencia que no se repite.">A secret place. One single night. An experience that never repeats.</p>
+  </div>
+
+  <!-- 2 · Concepto -->
+  <div class="ag-concept ag-rv d1">
+    <p data-en="Secret experiences designed in locations that normally remain closed. No itinerary, no advance photos. You only find out where you are going when you arrive. The mystery is not a detail — it is the whole product."
+       data-es="Experiencias diseñadas en secreto, en lugares que normalmente permanecen cerrados. Sin itinerario, sin fotos previas. Solo sabes adónde vas cuando llegas. El misterio no es un detalle — es el producto.">Secret experiences designed in locations that normally remain closed. No itinerary, no advance photos. You only find out where you are going when you arrive. The mystery is not a detail — it is the whole product.</p>
+  </div>
+
+  <!-- 3 · Cómo funciona -->
+  <div class="ag-steps">
+    <div class="ag-step ag-rv d1">
+      <span class="ag-step-n" aria-hidden="true">01</span>
+      <h3 class="ag-step-h"
+          data-en="Book blind"
+          data-es="Reservas a ciegas">Book blind</h3>
+      <p class="ag-step-note"
+         data-en="Trust your night without knowing the destination."
+         data-es="Confías tu noche sin saber el destino.">Trust your night without knowing the destination.</p>
+    </div>
+    <div class="ag-step ag-rv d2">
+      <span class="ag-step-n" aria-hidden="true">02</span>
+      <h3 class="ag-step-h"
+          data-en="Follow the clues"
+          data-es="Recibes pistas">Follow the clues</h3>
+      <p class="ag-step-note"
+         data-en="The secret unfolds little by little."
+         data-es="El secreto se desvela poco a poco.">The secret unfolds little by little.</p>
+    </div>
+    <div class="ag-step ag-rv d3">
+      <span class="ag-step-n" aria-hidden="true">03</span>
+      <h3 class="ag-step-h"
+          data-en="Live it"
+          data-es="Lo vives">Live it</h3>
+      <p class="ag-step-note"
+         data-en="You discover the place only when you arrive."
+         data-es="Descubres el lugar solo al llegar.">You discover the place only when you arrive.</p>
+    </div>
+  </div>
+
+  <!-- 4 · Modalidades -->
+  <div class="ag-modalities ag-rv d2" role="group" aria-label="Afterglow modalities">
+    <article class="ag-card" tabindex="0"
+             data-modality-en="Secret tastings" data-modality-es="Catas secretas">
+      <span class="ag-card-n" aria-hidden="true">I</span>
+      <h3 class="ag-card-h"
+          data-en="Secret tastings"
+          data-es="Catas secretas">Secret tastings</h3>
+      <p class="ag-card-desc"
+         data-en="Wine and spirits in places that appear on no map."
+         data-es="Vino y destilados en lugares que no aparecen en ningún mapa.">Wine and spirits in places that appear on no map.</p>
+    </article>
+    <article class="ag-card" tabindex="0"
+             data-modality-en="Forbidden dinners" data-modality-es="Cenas prohibidas">
+      <span class="ag-card-n" aria-hidden="true">II</span>
+      <h3 class="ag-card-h"
+          data-en="Forbidden dinners"
+          data-es="Cenas prohibidas">Forbidden dinners</h3>
+      <p class="ag-card-desc"
+         data-en="Tables in spaces with restricted access."
+         data-es="Mesas en espacios de acceso restringido.">Tables in spaces with restricted access.</p>
+    </article>
+    <article class="ag-card" tabindex="0"
+             data-modality-en="Sunset aboard" data-modality-es="Sunset a bordo">
+      <span class="ag-card-n" aria-hidden="true">III</span>
+      <h3 class="ag-card-h"
+          data-en="Sunset aboard"
+          data-es="Sunset a bordo">Sunset aboard</h3>
+      <p class="ag-card-desc"
+         data-en="A voyage at dusk toward a destination you only know when you set sail."
+         data-es="Una travesía al atardecer hacia un destino que solo conoces al zarpar.">A voyage at dusk toward a destination you only know when you set sail.</p>
+    </article>
+    <article class="ag-card" tabindex="0"
+             data-modality-en="Carte blanche" data-modality-es="Carta blanca">
+      <span class="ag-card-n" aria-hidden="true">IV</span>
+      <h3 class="ag-card-h"
+          data-en="Carte blanche"
+          data-es="Carta blanca">Carte blanche</h3>
+      <p class="ag-card-desc"
+         data-en="You choose nothing. Trust your night entirely and we design something unrepeatable."
+         data-es="No eliges formato; confías tu noche por completo y diseñamos algo irrepetible.">You choose nothing. Trust your night entirely and we design something unrepeatable.</p>
+    </article>
+  </div>
+
+  <!-- 5 · Localización censurada -->
+  <div class="ag-secret ag-rv d3">
+    <p class="ag-secret-label"
+       data-en="Next location"
+       data-es="Próxima localización">Next location</p>
+    <p class="ag-coords" aria-label="Hidden coordinates">36°16′N · 5°22′W</p>
+    <p class="ag-redact-line" aria-hidden="true">
+      <span class="ag-redact">███████████</span>
+      <span>de</span>
+      <span class="ag-redact">████████</span>
+    </p>
+  </div>
+
+  <!-- 6 · CTA -->
+  <div class="ag-cta ag-rv d4">
+    <button class="ag-btn" id="ag-access-btn"
+            data-en="Request access"
+            data-es="Solicita acceso">Request access</button>
+  </div>
 
 </section>
 
@@ -773,6 +1146,68 @@ if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
 } else {
   document.querySelectorAll('.rv').forEach(el => el.classList.add('on'));
 }
+
+/* ════════════════════════════════════════════════════
+   AFTERGLOW
+   ════════════════════════════════════════════════════ */
+(function afterglow() {
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const agEntry = document.getElementById('ag-entry');
+  const agRvEls = document.querySelectorAll('.ag-rv');
+
+  if (reduced) {
+    if (agEntry) agEntry.classList.add('on');
+    agRvEls.forEach(el => el.classList.add('on'));
+  } else {
+    const agObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('on'); agObs.unobserve(e.target); }
+      });
+    }, { threshold: .08 });
+    if (agEntry) agObs.observe(agEntry);
+    agRvEls.forEach(el => agObs.observe(el));
+  }
+
+  /* Card selection */
+  let sel = null;
+  document.querySelectorAll('.ag-card').forEach(card => {
+    const toggle = () => {
+      if (sel === card) {
+        card.classList.remove('ag-selected');
+        card.removeAttribute('aria-pressed');
+        sel = null;
+      } else {
+        if (sel) { sel.classList.remove('ag-selected'); sel.removeAttribute('aria-pressed'); }
+        card.classList.add('ag-selected');
+        card.setAttribute('aria-pressed', 'true');
+        sel = card;
+      }
+    };
+    card.addEventListener('click', toggle);
+    card.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+    });
+  });
+
+  /* CTA → contact, pre-fill modality */
+  const agBtn = document.getElementById('ag-access-btn');
+  const fMsg  = document.getElementById('f-msg');
+  if (agBtn) {
+    agBtn.addEventListener('click', () => {
+      if (sel && fMsg) {
+        const l  = document.documentElement.lang || 'en';
+        const mn = l === 'es' ? sel.dataset.modalityEs : sel.dataset.modalityEn;
+        if (mn) {
+          fMsg.value = l === 'es'
+            ? `Modalidad Afterglow: ${mn}\n\n`
+            : `Afterglow modality: ${mn}\n\n`;
+        }
+      }
+      const contact = document.getElementById('contact');
+      if (contact) contact.scrollIntoView({ behavior: 'smooth' });
+    });
+  }
+})();
 
 /* ════════════════════════════════════════════════════
    FORM
