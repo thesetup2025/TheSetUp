@@ -153,6 +153,11 @@
 
 <!-- ── HEADER ──────────────────────────────────────────── -->
 <header>
+  <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false" aria-controls="sideNav">
+    <span class="burger-bar"></span>
+    <span class="burger-bar"></span>
+    <span class="burger-bar"></span>
+  </button>
   <a href="index.html" class="wordmark" style="opacity:1" aria-label="TheSetUp — volver al inicio">TheSetUp</a>
   <nav class="lang" aria-label="Language / Idioma">
     <button class="lang-btn on" data-lang="en" aria-label="Switch to English" aria-pressed="true">EN</button>
@@ -160,6 +165,48 @@
     <button class="lang-btn" data-lang="es" aria-label="Cambiar a español" aria-pressed="false">ES</button>
   </nav>
 </header>
+
+<!-- ── NAV SCRIM + SIDE PANEL ──────────────────────────── -->
+<div class="nav-scrim" id="navScrim" aria-hidden="true"></div>
+<nav class="side-nav" id="sideNav" aria-label="Main navigation" aria-hidden="true">
+  <ul class="snav-list">
+    <li class="snav-item">
+      <a href="corporativo.html" class="snav-link">
+        <span class="snav-n" aria-hidden="true">01</span>
+        <span class="snav-title" data-en="Corporate" data-es="Corporativo">Corporate</span>
+      </a>
+    </li>
+    <li class="snav-item">
+      <a href="prebodas.html" class="snav-link">
+        <span class="snav-n" aria-hidden="true">02</span>
+        <span class="snav-title" data-en="Pre-wedding" data-es="Pre bodas">Pre-wedding</span>
+      </a>
+    </li>
+    <li class="snav-item">
+      <a href="daylight.html" class="snav-link">
+        <span class="snav-n" aria-hidden="true">03</span>
+        <span class="snav-title">Daylight</span>
+      </a>
+    </li>
+    <li class="snav-item">
+      <a href="afterglow.html" class="snav-link">
+        <span class="snav-n" aria-hidden="true">04</span>
+        <span class="snav-title">Afterglow</span>
+      </a>
+    </li>
+    <li class="snav-item">
+      <a href="galeria.html" class="snav-link">
+        <span class="snav-n" aria-hidden="true">05</span>
+        <span class="snav-title" data-en="Gallery" data-es="Galería">Gallery</span>
+      </a>
+    </li>
+  </ul>
+  <div class="snav-footer">
+    <a href="index.html" class="snav-foot-link" data-en="Home" data-es="Inicio">Home</a>
+    <span class="snav-foot-sep" aria-hidden="true">·</span>
+    <a href="index.html#contact" class="snav-foot-link" data-en="Contact" data-es="Contacto">Contact</a>
+  </div>
+</nav>
 
 <!-- ── PAGE HERO ───────────────────────────────────────── -->
 <section class="page-hero" aria-label="Daylight">
@@ -350,6 +397,34 @@ if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
 } else {
   document.querySelectorAll('.rv').forEach(el => el.classList.add('on'));
 }
+
+/* ══ SIDE NAV ══════════════════════════════════════════ */
+(function() {
+  const toggle = document.getElementById('navToggle');
+  const panel  = document.getElementById('sideNav');
+  const scrim  = document.getElementById('navScrim');
+  let navOpen  = false;
+
+  function openNav() {
+    navOpen = true;
+    panel.classList.add('open');
+    scrim.classList.add('open');
+    toggle.setAttribute('aria-expanded', 'true');
+    panel.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeNav() {
+    navOpen = false;
+    panel.classList.remove('open');
+    scrim.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
+    panel.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+  toggle.addEventListener('click', () => navOpen ? closeNav() : openNav());
+  scrim.addEventListener('click', closeNav);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && navOpen) closeNav(); });
+})();
 </script>
 </body>
 </html>
