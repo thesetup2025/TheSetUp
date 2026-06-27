@@ -71,72 +71,94 @@
       animation: pulse 2.8s ease infinite;
     }
 
-    /* ── DOORS (text only) ────────────────────────────── */
+    /* ── DOORS LIST ───────────────────────────────────── */
     #doors {
-      padding: 20vh 5vw 22vh;
+      padding: 16vh 5vw 18vh;
       position: relative;
       z-index: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    }
+
+    .doors-list {
+      border-bottom: 1px solid #1c1c1c;
     }
 
     .door {
-      display: block;
-      text-align: center;
+      display: flex;
+      align-items: center;
+      gap: 1.8rem;
+      padding: 1.55rem 0;
       text-decoration: none;
-      padding: 4.5vh 0;
-      width: 100%;
-      max-width: 680px;
+      border-top: 1px solid #1c1c1c;
+      transition: transform .4s ease;
     }
+
+    .door:hover,
+    .door:focus-visible { transform: translateX(8px); }
+
+    .door-n {
+      flex: 0 0 2rem;
+      font-family: 'Inter', sans-serif;
+      font-size: .5rem;
+      letter-spacing: .18em;
+      color: rgba(245,240,232,.22);
+      font-weight: 300;
+      transition: color .4s ease;
+    }
+
+    .door-body { flex: 1; min-width: 0; }
 
     .door-title {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(2.6rem, 5.5vw, 6.5rem);
+      font-size: 1.2rem;
       font-weight: 400;
       color: var(--fg);
-      letter-spacing: .04em;
-      line-height: 1;
-      transition: color .5s ease;
+      letter-spacing: .02em;
+      line-height: 1.2;
+      display: block;
+      transition: color .4s ease;
     }
 
     .door-sub {
       display: block;
-      margin-top: 1rem;
+      margin-top: .38rem;
       font-family: 'Inter', sans-serif;
-      font-size: .5rem;
-      letter-spacing: .44em;
+      font-size: .43rem;
+      letter-spacing: .36em;
       text-transform: uppercase;
-      color: rgba(245,240,232,.18);
+      color: rgba(245,240,232,.16);
       font-weight: 300;
-      transition: color .5s ease;
+      transition: color .4s ease;
     }
+
+    .door-arrow {
+      flex: 0 0 auto;
+      font-size: .85rem;
+      color: var(--tc);
+      opacity: 0;
+      transform: translateX(-6px);
+      transition: opacity .4s ease, transform .4s ease;
+    }
+
+    .door:hover .door-n,
+    .door:focus-visible .door-n { color: var(--tc); }
 
     .door:hover .door-title,
     .door:focus-visible .door-title { color: var(--tc); }
 
     .door:hover .door-sub,
-    .door:focus-visible .door-sub { color: rgba(199,93,60,.55); }
+    .door:focus-visible .door-sub { color: rgba(199,93,60,.62); }
 
-    .door:focus-visible { outline: none; }
-    .door:focus-visible .door-title {
-      text-decoration: underline;
-      text-underline-offset: 8px;
-      text-decoration-color: rgba(199,93,60,.4);
-    }
+    .door:hover .door-arrow,
+    .door:focus-visible .door-arrow { opacity: 1; transform: translateX(0); }
 
-    .door-sep {
-      display: block;
-      width: 1px;
-      height: 22px;
-      background: rgba(245,240,232,.07);
-      margin: 0 auto;
+    .door:focus-visible {
+      outline: 1px solid rgba(199,93,60,.2);
+      outline-offset: 4px;
     }
 
     @media (max-width: 640px) {
-      #doors { padding: 14vh 5vw 16vh; }
-      .door  { padding: 3.5vh 0; }
-      .door-sep { height: 16px; }
+      #doors { padding: 12vh 5vw 14vh; }
+      .door  { padding: 1.3rem 0; gap: 1.2rem; }
     }
   </style>
 </head>
@@ -168,56 +190,70 @@
 
 <!-- ── DOORS ───────────────────────────────────────────── -->
 <section id="doors" aria-label="Experiencias">
+  <div class="doors-list">
 
-  <a href="corporativo.html" class="door rv">
-    <h2 class="door-title"
-        data-en="Corporate"
-        data-es="Corporativo">Corporate</h2>
-    <span class="door-sub"
-          data-en="Corporate events"
-          data-es="Eventos de empresa">Corporate events</span>
-  </a>
+    <a href="corporativo.html" class="door rv">
+      <span class="door-n" aria-hidden="true">01</span>
+      <div class="door-body">
+        <span class="door-title"
+              data-en="Corporate"
+              data-es="Corporativo">Corporate</span>
+        <span class="door-sub"
+              data-en="Corporate events"
+              data-es="Eventos de empresa">Corporate events</span>
+      </div>
+      <span class="door-arrow" aria-hidden="true">→</span>
+    </a>
 
-  <span class="door-sep rv d1" aria-hidden="true"></span>
+    <a href="prebodas.html" class="door rv d1">
+      <span class="door-n" aria-hidden="true">02</span>
+      <div class="door-body">
+        <span class="door-title"
+              data-en="Pre-wedding"
+              data-es="Pre bodas">Pre-wedding</span>
+        <span class="door-sub"
+              data-en="Before the big day"
+              data-es="Antes del gran día">Before the big day</span>
+      </div>
+      <span class="door-arrow" aria-hidden="true">→</span>
+    </a>
 
-  <a href="prebodas.html" class="door rv d1">
-    <h2 class="door-title"
-        data-en="Pre-wedding"
-        data-es="Pre bodas">Pre-wedding</h2>
-    <span class="door-sub"
-          data-en="Before the big day"
-          data-es="Antes del gran día">Before the big day</span>
-  </a>
+    <a href="daylight.html" class="door rv d2">
+      <span class="door-n" aria-hidden="true">03</span>
+      <div class="door-body">
+        <span class="door-title">Daylight</span>
+        <span class="door-sub"
+              data-en="Outdoor leisure"
+              data-es="Ocio al aire libre">Outdoor leisure</span>
+      </div>
+      <span class="door-arrow" aria-hidden="true">→</span>
+    </a>
 
-  <span class="door-sep rv d2" aria-hidden="true"></span>
+    <a href="afterglow.html" class="door rv d3">
+      <span class="door-n" aria-hidden="true">04</span>
+      <div class="door-body">
+        <span class="door-title">Afterglow</span>
+        <span class="door-sub"
+              data-en="Secret experiences"
+              data-es="Experiencias secretas">Secret experiences</span>
+      </div>
+      <span class="door-arrow" aria-hidden="true">→</span>
+    </a>
 
-  <a href="daylight.html" class="door rv d2">
-    <h2 class="door-title">Daylight</h2>
-    <span class="door-sub"
-          data-en="Outdoor leisure"
-          data-es="Ocio al aire libre">Outdoor leisure</span>
-  </a>
+    <a href="galeria.html" class="door rv d4">
+      <span class="door-n" aria-hidden="true">05</span>
+      <div class="door-body">
+        <span class="door-title"
+              data-en="Gallery"
+              data-es="Galería">Gallery</span>
+        <span class="door-sub"
+              data-en="Moments"
+              data-es="Momentos">Moments</span>
+      </div>
+      <span class="door-arrow" aria-hidden="true">→</span>
+    </a>
 
-  <span class="door-sep rv d3" aria-hidden="true"></span>
-
-  <a href="afterglow.html" class="door rv d3">
-    <h2 class="door-title">Afterglow</h2>
-    <span class="door-sub"
-          data-en="Secret experiences"
-          data-es="Experiencias secretas">Secret experiences</span>
-  </a>
-
-  <span class="door-sep rv d4" aria-hidden="true"></span>
-
-  <a href="galeria.html" class="door rv d4">
-    <h2 class="door-title"
-        data-en="Gallery"
-        data-es="Galería">Gallery</h2>
-    <span class="door-sub"
-          data-en="Moments"
-          data-es="Momentos">Moments</span>
-  </a>
-
+  </div>
 </section>
 
 <!-- ── SOTOGRANDE ──────────────────────────────────────── -->
