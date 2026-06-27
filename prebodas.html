@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pre bodas · TheSetUp</title>
+  <meta name="description" content="Celebraciones pre-boda y experiencias wellness en Sotogrande. TheSetUp.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    /* ── PAGE HERO ────────────────────────────────────── */
+    .page-hero {
+      min-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 5vw 10vh;
+      position: relative;
+      z-index: 1;
+    }
+
+    .ph-n {
+      display: block;
+      font-size: .5rem;
+      letter-spacing: .38em;
+      color: var(--tc);
+      margin-bottom: 1.8rem;
+      opacity: 0;
+      animation: fadeIn 1s .4s ease forwards;
+    }
+
+    .ph-h {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.5rem, 9vw, 10rem);
+      font-weight: 400;
+      letter-spacing: .06em;
+      line-height: 1;
+      opacity: 0;
+      animation: fadeIn 1.4s .6s ease forwards;
+    }
+
+    .ph-rule {
+      width: 44px;
+      height: 1px;
+      background: var(--tc);
+      margin: 2.8rem 0;
+      opacity: 0;
+      animation: fadeIn 1s 1s ease forwards;
+    }
+
+    .ph-sub {
+      font-size: clamp(.78rem, 1.4vw, .95rem);
+      color: rgba(245,240,232,.35);
+      letter-spacing: .04em;
+      max-width: 520px;
+      line-height: 1.75;
+      opacity: 0;
+      animation: fadeIn 1s 1.2s ease forwards;
+    }
+
+    /* ── SUB-SECTIONS ─────────────────────────────────── */
+    .sub-section {
+      padding: 14vh 5vw 10vh;
+      position: relative;
+      z-index: 1;
+    }
+
+    .sub-section + .sub-section {
+      border-top: 1px solid rgba(245,240,232,.04);
+    }
+
+    .sub-label {
+      font-size: .5rem;
+      letter-spacing: .38em;
+      text-transform: uppercase;
+      color: rgba(199,93,60,.45);
+      display: block;
+      margin-bottom: 1.6rem;
+    }
+
+    .sub-h {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 5vw, 5.5rem);
+      font-weight: 400;
+      line-height: 1.05;
+      margin-bottom: 1.4rem;
+      letter-spacing: .04em;
+    }
+
+    .sub-rule {
+      width: 32px;
+      height: 1px;
+      background: var(--tc);
+      margin: 2rem 0;
+      opacity: .6;
+    }
+
+    .sub-intro {
+      font-size: clamp(.85rem, 1.5vw, 1rem);
+      color: rgba(245,240,232,.45);
+      line-height: 1.85;
+      max-width: 580px;
+      margin-bottom: 8vh;
+      letter-spacing: .02em;
+    }
+
+    /* ── EXPERIENCE LIST (compact) ────────────────────── */
+    .exp-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: rgba(245,240,232,.04);
+      border-top: 1px solid rgba(245,240,232,.04);
+      border-bottom: 1px solid rgba(245,240,232,.04);
+      max-width: 900px;
+    }
+
+    .exp-item {
+      padding: 2.2rem clamp(1.2rem, 2.5vw, 2rem);
+      background: var(--bg);
+    }
+
+    .exp-dot {
+      display: inline-block;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--tc);
+      margin-bottom: 1rem;
+      opacity: .6;
+    }
+
+    .exp-h {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(.95rem, 1.6vw, 1.15rem);
+      font-weight: 400;
+      color: var(--fg);
+      margin-bottom: .6rem;
+      line-height: 1.2;
+    }
+
+    .exp-desc {
+      font-size: .74rem;
+      color: rgba(245,240,232,.28);
+      line-height: 1.8;
+    }
+
+    @media (max-width: 640px) {
+      .page-hero { min-height: 70vh; padding-bottom: 8vh; }
+      .sub-section { padding: 10vh 5vw 8vh; }
+      .exp-list { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="cvs" aria-hidden="true"></canvas>
+
+<!-- ── HEADER ──────────────────────────────────────────── -->
+<header>
+  <a href="index.html" class="wordmark" style="opacity:1" aria-label="TheSetUp — volver al inicio">TheSetUp</a>
+  <nav class="lang" aria-label="Language / Idioma">
+    <button class="lang-btn on" data-lang="en" aria-label="Switch to English" aria-pressed="true">EN</button>
+    <span class="lang-sep" aria-hidden="true">·</span>
+    <button class="lang-btn" data-lang="es" aria-label="Cambiar a español" aria-pressed="false">ES</button>
+  </nav>
+</header>
+
+<!-- ── PAGE HERO ───────────────────────────────────────── -->
+<section class="page-hero" aria-label="Pre bodas">
+  <span class="ph-n" aria-hidden="true">03</span>
+  <h1 class="ph-h" data-en="Pre-wedding" data-es="Pre bodas">Pre-wedding</h1>
+  <div class="ph-rule" aria-hidden="true"></div>
+  <p class="ph-sub"
+     data-en="Celebrations that frame the beginning."
+     data-es="Celebraciones que enmarcan el principio.">Celebrations that frame the beginning.</p>
+</section>
+
+<!-- ── SUB-SECTION: PRE-WEDDING ────────────────────────── -->
+<section class="sub-section" aria-label="Pre bodas">
+
+  <span class="sub-label rv"
+        data-en="Pre-wedding"
+        data-es="Pre bodas">Pre-wedding</span>
+  <h2 class="sub-h rv d1"
+      data-en="Before the day itself"
+      data-es="Antes del gran día">Before the day itself</h2>
+  <div class="sub-rule rv d2" aria-hidden="true"></div>
+  <p class="sub-intro rv d2"
+     data-en="Celebrations without clichés. From intimate dinners the night before to welcome parties for guests arriving from afar. Each moment is designed as its own chapter, with the same care as the wedding itself."
+     data-es="Celebraciones sin tópicos. Desde cenas íntimas la noche anterior hasta welcome parties para invitados que vienen de lejos. Cada momento, diseñado como un capítulo propio, con el mismo cuidado que la boda.">Celebrations without clichés. From intimate dinners the night before to welcome parties for guests arriving from afar. Each moment is designed as its own chapter, with the same care as the wedding itself.</p>
+
+  <div class="exp-list" role="list">
+
+    <div class="exp-item rv" role="listitem">
+      <span class="exp-dot" aria-hidden="true"></span>
+      <h3 class="exp-h"
+          data-en="Hen &amp; stag experiences"
+          data-es="Despedidas de soltera y soltero">Hen &amp; stag experiences</h3>
+      <p class="exp-desc"
+         data-en="Custom design for the group, the place and the moment. Without the predictable."
+         data-es="Diseño personalizado para el grupo, el lugar y el momento. Sin lo predecible.">Custom design for the group, the place and the moment. Without the predictable.</p>
+    </div>
+
+    <div class="exp-item rv d1" role="listitem">
+      <span class="exp-dot" aria-hidden="true"></span>
+      <h3 class="exp-h"
+          data-en="Welcome party"
+          data-es="Welcome party">Welcome party</h3>
+      <p class="exp-desc"
+         data-en="First gathering of all guests at a location that already says something about who you are."
+         data-es="Primer encuentro de todos los invitados en un lugar que ya dice algo de quiénes sois.">First gathering of all guests at a location that already says something about who you are.</p>
+    </div>
+
+    <div class="exp-item rv d2" role="listitem">
+      <span class="exp-dot" aria-hidden="true"></span>
+      <h3 class="exp-h"
+          data-en="Rehearsal dinner"
+          data-es="Cena de ensayo">Rehearsal dinner</h3>
+      <p class="exp-desc"
+         data-en="Intimate, elegant, with the warmth of what is about to happen."
+         data-es="Íntima, elegante, con el calor de lo que está a punto de llegar.">Intimate, elegant, with the warmth of what is about to happen.</p>
+    </div>
+
+    <div class="exp-item rv d3" role="listitem">
+      <span class="exp-dot" aria-hidden="true"></span>
+      <h3 class="exp-h"
+          data-en="Post-wedding brunch"
+          data-es="Brunch post-boda">Post-wedding brunch</h3>
+      <p class="exp-desc"
+         data-en="The perfect close. Relaxed, unhurried, with everyone still together."
+         data-es="El cierre perfecto. Tranquilo, sin prisa, con todos todavía juntos.">The perfect close. Relaxed, unhurried, with everyone still together.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── SUB-SECTION: UNWIND ──────────────────────────────── -->
+<section class="sub-section" aria-label="Unwind">
+
+  <span class="sub-label rv"
+        data-en="Wellness"
+        data-es="Bienestar">Wellness</span>
+  <h2 class="sub-h rv d1">Unwind</h2>
+  <div class="sub-rule rv d2" aria-hidden="true"></div>
+  <p class="sub-intro rv d2"
+     data-en="Wellness experiences woven into the landscape. Designed for those who want to arrive at the celebration having already let go."
+     data-es="Experiencias de bienestar integradas en el entorno. Diseñadas para quienes quieren llegar a la celebración habiendo soltado ya todo.">Wellness experiences woven into the landscape. Designed for those who want to arrive at the celebration having already let go.</p>
+
+  <div class="exp-list" role="list">
+
+    <div class="exp-item rv" role="listitem">
+      <span class="exp-dot" aria-hidden="true"></span>
+      <h3 class="exp-h"
+          data-en="Yoga &amp; wellness at dawn"
+          data-es="Yoga &amp; wellness al amanecer">Yoga &amp; wellness at dawn</h3>
+      <p class="exp-desc"
+         data-en="Morning practice facing the sea, followed by a slow breakfast in silence."
+         data-es="Práctica matinal frente al mar, seguida de un desayuno pausado en silencio.">Morning practice facing the sea, followed by a slow breakfast in silence.</p>
+    </div>
+
+    <div class="exp-item rv d1" role="listitem">
+      <span class="exp-dot" aria-hidden="true"></span>
+      <h3 class="exp-h"
+          data-en="Outdoor massage &amp; spa"
+          data-es="Masajes y spa al aire libre">Outdoor massage &amp; spa</h3>
+      <p class="exp-desc"
+         data-en="Bodywork in natural spaces, with views and a Mediterranean breeze."
+         data-es="Tratamientos corporales en espacios naturales, con vistas y brisa mediterránea.">Bodywork in natural spaces, with views and a Mediterranean breeze.</p>
+    </div>
+
+    <div class="exp-item rv d2" role="listitem">
+      <span class="exp-dot" aria-hidden="true"></span>
+      <h3 class="exp-h"
+          data-en="Cinema under the stars"
+          data-es="Cine bajo las estrellas">Cinema under the stars</h3>
+      <p class="exp-desc"
+         data-en="Open-air screening with curated film selection, atmosphere and comfort."
+         data-es="Proyección al aire libre con selección de película, ambiente y confort cuidados.">Open-air screening with curated film selection, atmosphere and comfort.</p>
+    </div>
+
+    <div class="exp-item rv d3" role="listitem">
+      <span class="exp-dot" aria-hidden="true"></span>
+      <h3 class="exp-h"
+          data-en="Sound bath"
+          data-es="Baño de sonido">Sound bath</h3>
+      <p class="exp-desc"
+         data-en="Deep relaxation through resonance and vibration in natural spaces."
+         data-es="Relajación profunda a través de la resonancia y la vibración en entornos naturales.">Deep relaxation through resonance and vibration in natural spaces.</p>
+    </div>
+
+    <div class="exp-item rv" role="listitem">
+      <span class="exp-dot" aria-hidden="true"></span>
+      <h3 class="exp-h"
+          data-en="Healthy picnic"
+          data-es="Picnic healthy">Healthy picnic</h3>
+      <p class="exp-desc"
+         data-en="Thoughtfully curated food in exceptional outdoor settings."
+         data-es="Gastronomía cuidada en entornos exteriores excepcionales.">Thoughtfully curated food in exceptional outdoor settings.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── CONTACT CTA ──────────────────────────────────────── -->
+<section class="contact-cta" aria-label="Contacto">
+  <span class="cta-eyebrow rv"
+        data-en="Ready to plan?"
+        data-es="¿Listo para planificarlo?">Ready to plan?</span>
+  <p class="cta-h rv d1"
+     data-en="Tell us about your celebration."
+     data-es="Cuéntanos tu celebración.">Tell us about your celebration.</p>
+  <a href="index.html#contact" class="cta-btn rv d2"
+     data-en="Get in touch"
+     data-es="Escríbenos">Get in touch</a>
+</section>
+
+<!-- ── FOOTER ──────────────────────────────────────────── -->
+<footer>
+  <a href="index.html" class="ft-w" style="text-decoration:none">TheSetUp</a>
+  <span class="ft-c">© 2025 · Sotogrande</span>
+</footer>
+
+
+<script>
+'use strict';
+
+/* ══ LANGUAGE ══════════════════════════════════════════ */
+const LANGS = ['en', 'es'];
+let lang = localStorage.getItem('tsu-lang') || 'en';
+if (!LANGS.includes(lang)) lang = 'en';
+
+function applyLang(l) {
+  lang = l;
+  document.documentElement.lang = l;
+  localStorage.setItem('tsu-lang', l);
+  document.querySelectorAll('[data-en]').forEach(el => { el.textContent = el.dataset[l]; });
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    const active = btn.dataset.lang === l;
+    btn.classList.toggle('on', active);
+    btn.setAttribute('aria-pressed', active.toString());
+  });
+}
+
+applyLang(lang);
+document.querySelectorAll('.lang-btn').forEach(btn => {
+  btn.addEventListener('click', () => applyLang(btn.dataset.lang));
+});
+
+/* ══ PARTICLES ══════════════════════════════════════════ */
+(function particles() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const cvs = document.getElementById('cvs');
+  const ctx = cvs.getContext('2d');
+  const mob = window.innerWidth < 640;
+  const N = mob ? 20 : 55;
+  const CD = 100;
+  let W, H, sp = 0, pmx = null, pmy = null;
+  const pts = [];
+
+  function resize() { W = cvs.width = window.innerWidth; H = cvs.height = window.innerHeight; }
+  resize();
+  window.addEventListener('resize', resize, { passive: true });
+  document.addEventListener('mousemove', e => { pmx = e.clientX; pmy = e.clientY; }, { passive: true });
+
+  for (let i = 0; i < N; i++) {
+    const vx = (Math.random()-.5)*.22, vy = (Math.random()-.5)*.22;
+    pts.push({ x: Math.random()*W, y: Math.random()*H, r: Math.random()*1.3+.3,
+               vx, vy, bvx: vx, bvy: vy, maxA: Math.random()*.35+.05, a: 0 });
+  }
+
+  function frame() {
+    ctx.clearRect(0, 0, W, H);
+    for (const p of pts) {
+      if (pmx !== null) {
+        const dx=pmx-p.x, dy=pmy-p.y, d2=dx*dx+dy*dy;
+        if (d2<12100) { const f=(1-Math.sqrt(d2)/110)*.0032; p.vx-=dx*f; p.vy-=dy*f; }
+      }
+      p.vx+=(p.bvx-p.vx)*.04; p.vy+=(p.bvy-p.vy)*.04;
+      p.x+=p.vx; p.y+=p.vy;
+      if (p.x<0) p.x=W; else if (p.x>W) p.x=0;
+      if (p.y<0) p.y=H; else if (p.y>H) p.y=0;
+      const tgt = p.maxA * Math.max(.06, sp*1.5);
+      p.a += (Math.min(tgt,p.maxA)-p.a)*.02;
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.2832);
+      ctx.fillStyle = `rgba(199,93,60,${p.a})`; ctx.fill();
+    }
+    if (!mob) for (let i=0; i<pts.length; i++) for (let j=i+1; j<pts.length; j++) {
+      const dx=pts[i].x-pts[j].x, dy=pts[i].y-pts[j].y, d=Math.sqrt(dx*dx+dy*dy);
+      if (d<CD) {
+        const a=(1-d/CD)*.06*sp; if (a<.003) continue;
+        ctx.beginPath(); ctx.moveTo(pts[i].x,pts[i].y); ctx.lineTo(pts[j].x,pts[j].y);
+        ctx.strokeStyle=`rgba(199,93,60,${a})`; ctx.lineWidth=.4; ctx.stroke();
+      }
+    }
+    requestAnimationFrame(frame);
+  }
+  frame();
+  window._pScroll = v => { sp = v; };
+})();
+
+/* ══ SCROLL ════════════════════════════════════════════ */
+let raf = false;
+function onScroll() {
+  if (raf) return; raf = true;
+  requestAnimationFrame(() => {
+    const maxH = document.documentElement.scrollHeight - window.innerHeight;
+    const prog = maxH > 0 ? Math.min(window.scrollY/maxH, 1) : 0;
+    document.documentElement.style.setProperty('--s', prog);
+    const w = Math.round(prog*9);
+    document.body.style.backgroundColor = `rgb(${13+w},${13+Math.round(w*.45)},13)`;
+    if (window._pScroll) window._pScroll(prog);
+    raf = false;
+  });
+}
+window.addEventListener('scroll', onScroll, { passive: true });
+onScroll();
+
+/* ══ SCROLL REVEAL ════════════════════════════════════ */
+if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); obs.unobserve(e.target); } });
+  }, { threshold: .1 });
+  document.querySelectorAll('.rv').forEach(el => obs.observe(el));
+} else {
+  document.querySelectorAll('.rv').forEach(el => el.classList.add('on'));
+}
+</script>
+</body>
+</html>

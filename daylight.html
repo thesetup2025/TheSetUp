@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daylight · TheSetUp</title>
+  <meta name="description" content="Experiencias al aire libre en Sotogrande. TheSetUp.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    /* ── PAGE HERO ────────────────────────────────────── */
+    .page-hero {
+      min-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 5vw 10vh;
+      position: relative;
+      z-index: 1;
+    }
+
+    .ph-n {
+      display: block;
+      font-size: .5rem;
+      letter-spacing: .38em;
+      color: var(--tc);
+      margin-bottom: 1.8rem;
+      opacity: 0;
+      animation: fadeIn 1s .4s ease forwards;
+    }
+
+    .ph-h {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.5rem, 9vw, 10rem);
+      font-weight: 400;
+      letter-spacing: .06em;
+      line-height: 1;
+      opacity: 0;
+      animation: fadeIn 1.4s .6s ease forwards;
+    }
+
+    .ph-rule {
+      width: 44px;
+      height: 1px;
+      background: var(--tc);
+      margin: 2.8rem 0;
+      opacity: 0;
+      animation: fadeIn 1s 1s ease forwards;
+    }
+
+    .ph-sub {
+      font-size: clamp(.78rem, 1.4vw, .95rem);
+      color: rgba(245,240,232,.35);
+      letter-spacing: .04em;
+      max-width: 520px;
+      line-height: 1.75;
+      opacity: 0;
+      animation: fadeIn 1s 1.2s ease forwards;
+    }
+
+    /* ── INTRO ────────────────────────────────────────── */
+    .page-intro {
+      padding: 14vh 5vw 10vh;
+      max-width: 720px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .page-intro p {
+      font-size: clamp(.88rem, 1.6vw, 1.05rem);
+      color: rgba(245,240,232,.52);
+      line-height: 1.9;
+      letter-spacing: .02em;
+    }
+
+    /* ── EXPERIENCES ──────────────────────────────────── */
+    .experiences-section {
+      padding: 0 0 18vh;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Experiencia individual — layout texto + detalle */
+    .exp-block {
+      padding: 8vh 5vw;
+      border-top: 1px solid rgba(245,240,232,.04);
+      display: flex;
+      align-items: flex-start;
+      gap: clamp(3rem, 7vw, 8rem);
+    }
+
+    .exp-block:last-child {
+      border-bottom: 1px solid rgba(245,240,232,.04);
+    }
+
+    .exp-block-n {
+      flex: 0 0 auto;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 6vw, 6rem);
+      font-weight: 400;
+      color: rgba(199,93,60,.07);
+      line-height: 1;
+      user-select: none;
+    }
+
+    .exp-block-body { flex: 1; min-width: 0; }
+
+    .exp-block-tag {
+      display: block;
+      font-size: .47rem;
+      letter-spacing: .32em;
+      text-transform: uppercase;
+      color: rgba(199,93,60,.5);
+      margin-bottom: 1.2rem;
+    }
+
+    .exp-block-h {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 3vw, 2.8rem);
+      font-weight: 400;
+      color: var(--fg);
+      line-height: 1.1;
+      margin-bottom: 1.4rem;
+      letter-spacing: .03em;
+    }
+
+    .exp-block-desc {
+      font-size: .84rem;
+      color: rgba(245,240,232,.35);
+      line-height: 1.85;
+      max-width: 520px;
+    }
+
+    @media (max-width: 768px) {
+      .exp-block { flex-direction: column; gap: 1.5rem; }
+      .exp-block-n { font-size: clamp(2rem, 5vw, 3.5rem); }
+    }
+
+    @media (max-width: 640px) {
+      .page-hero { min-height: 70vh; padding-bottom: 8vh; }
+      .page-intro { padding: 10vh 5vw 8vh; }
+      .exp-block { padding: 6vh 5vw; }
+      .experiences-section { padding-bottom: 12vh; }
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="cvs" aria-hidden="true"></canvas>
+
+<!-- ── HEADER ──────────────────────────────────────────── -->
+<header>
+  <a href="index.html" class="wordmark" style="opacity:1" aria-label="TheSetUp — volver al inicio">TheSetUp</a>
+  <nav class="lang" aria-label="Language / Idioma">
+    <button class="lang-btn on" data-lang="en" aria-label="Switch to English" aria-pressed="true">EN</button>
+    <span class="lang-sep" aria-hidden="true">·</span>
+    <button class="lang-btn" data-lang="es" aria-label="Cambiar a español" aria-pressed="false">ES</button>
+  </nav>
+</header>
+
+<!-- ── PAGE HERO ───────────────────────────────────────── -->
+<section class="page-hero" aria-label="Daylight">
+  <span class="ph-n" aria-hidden="true">04</span>
+  <h1 class="ph-h">Daylight</h1>
+  <div class="ph-rule" aria-hidden="true"></div>
+  <p class="ph-sub"
+     data-en="While the sun lasts."
+     data-es="Mientras dure el sol.">While the sun lasts.</p>
+</section>
+
+<!-- ── INTRO ───────────────────────────────────────────── -->
+<section class="page-intro rv" aria-label="Introducción">
+  <p data-en="If Afterglow is the night, Daylight is the day. Outdoor experiences that make the most of Sotogrande's light, water and space. Friendly competition, nature and celebration in a single afternoon."
+     data-es="Si Afterglow es la noche, Daylight es el día. Experiencias al aire libre que aprovechan la luz, el agua y el espacio de Sotogrande. Competición amistosa, naturaleza y celebración en una sola tarde.">If Afterglow is the night, Daylight is the day. Outdoor experiences that make the most of Sotogrande's light, water and space. Friendly competition, nature and celebration in a single afternoon.</p>
+</section>
+
+<!-- ── EXPERIENCES ─────────────────────────────────────── -->
+<section class="experiences-section" aria-label="Experiencias">
+
+  <article class="exp-block rv">
+    <span class="exp-block-n" aria-hidden="true">01</span>
+    <div class="exp-block-body">
+      <span class="exp-block-tag"
+            data-en="Sport + food"
+            data-es="Deporte + gastronomía">Sport + food</span>
+      <h2 class="exp-block-h"
+          data-en="Padel or tennis tournament + asado"
+          data-es="Torneo de pádel o tenis + asado">Padel or tennis tournament + asado</h2>
+      <p class="exp-block-desc"
+         data-en="A match or mini-tournament on the best courts in the area, followed by a proper outdoor asado. The right way to burn and celebrate in the same afternoon."
+         data-es="Partido o mini-torneo en las mejores pistas de la zona, seguido de un asado en exterior. La forma correcta de quemar y celebrar en la misma tarde.">A match or mini-tournament on the best courts in the area, followed by a proper outdoor asado. The right way to burn and celebrate in the same afternoon.</p>
+    </div>
+  </article>
+
+  <article class="exp-block rv d1">
+    <span class="exp-block-n" aria-hidden="true">02</span>
+    <div class="exp-block-body">
+      <span class="exp-block-tag"
+            data-en="Equestrian sport"
+            data-es="Deporte ecuestre">Equestrian sport</span>
+      <h2 class="exp-block-h"
+          data-en="Polo afternoon"
+          data-es="Tarde de polo">Polo afternoon</h2>
+      <p class="exp-block-desc"
+         data-en="Private access to some of Europe's finest polo fields, with bespoke hospitality and curated catering. Sotogrande is one of the sport's great homes — you should experience it properly."
+         data-es="Acceso privado a algunos de los mejores campos de polo de Europa, con hospitalidad personalizada y catering cuidado. Sotogrande es uno de los grandes centros mundiales del polo — lo mínimo es vivirlo bien.">Private access to some of Europe's finest polo fields, with bespoke hospitality and curated catering. Sotogrande is one of the sport's great homes — you should experience it properly.</p>
+    </div>
+  </article>
+
+  <article class="exp-block rv d2">
+    <span class="exp-block-n" aria-hidden="true">03</span>
+    <div class="exp-block-body">
+      <span class="exp-block-tag"
+            data-en="On the water"
+            data-es="En el agua">On the water</span>
+      <h2 class="exp-block-h"
+          data-en="Boat trip / private regatta"
+          data-es="Salida en barco / regata privada">Boat trip / private regatta</h2>
+      <p class="exp-block-desc"
+         data-en="Sailing from Sotogrande harbour towards the Strait or the Andalusian coast, with crew, catering and sunset at sea. Or a proper private regatta if competition is more your thing."
+         data-es="Navegación desde el puerto de Sotogrande hacia el Estrecho o la costa andaluza, con tripulación, catering y atardecer a bordo. O una regata privada en toda regla si lo tuyo es la competición.">Sailing from Sotogrande harbour towards the Strait or the Andalusian coast, with crew, catering and sunset at sea. Or a proper private regatta if competition is more your thing.</p>
+    </div>
+  </article>
+
+</section>
+
+<!-- ── CONTACT CTA ──────────────────────────────────────── -->
+<section class="contact-cta" aria-label="Contacto">
+  <span class="cta-eyebrow rv"
+        data-en="Plan your day"
+        data-es="Planifica tu día">Plan your day</span>
+  <p class="cta-h rv d1"
+     data-en="Tell us who's coming and what you're after."
+     data-es="Cuéntanos quién viene y qué buscáis.">Tell us who's coming and what you're after.</p>
+  <a href="index.html#contact" class="cta-btn rv d2"
+     data-en="Get in touch"
+     data-es="Escríbenos">Get in touch</a>
+</section>
+
+<!-- ── FOOTER ──────────────────────────────────────────── -->
+<footer>
+  <a href="index.html" class="ft-w" style="text-decoration:none">TheSetUp</a>
+  <span class="ft-c">© 2025 · Sotogrande</span>
+</footer>
+
+
+<script>
+'use strict';
+
+/* ══ LANGUAGE ══════════════════════════════════════════ */
+const LANGS = ['en', 'es'];
+let lang = localStorage.getItem('tsu-lang') || 'en';
+if (!LANGS.includes(lang)) lang = 'en';
+
+function applyLang(l) {
+  lang = l;
+  document.documentElement.lang = l;
+  localStorage.setItem('tsu-lang', l);
+  document.querySelectorAll('[data-en]').forEach(el => { el.textContent = el.dataset[l]; });
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    const active = btn.dataset.lang === l;
+    btn.classList.toggle('on', active);
+    btn.setAttribute('aria-pressed', active.toString());
+  });
+}
+
+applyLang(lang);
+document.querySelectorAll('.lang-btn').forEach(btn => {
+  btn.addEventListener('click', () => applyLang(btn.dataset.lang));
+});
+
+/* ══ PARTICLES ══════════════════════════════════════════ */
+(function particles() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const cvs = document.getElementById('cvs');
+  const ctx = cvs.getContext('2d');
+  const mob = window.innerWidth < 640;
+  const N = mob ? 20 : 55;
+  const CD = 100;
+  let W, H, sp = 0, pmx = null, pmy = null;
+  const pts = [];
+
+  function resize() { W = cvs.width = window.innerWidth; H = cvs.height = window.innerHeight; }
+  resize();
+  window.addEventListener('resize', resize, { passive: true });
+  document.addEventListener('mousemove', e => { pmx = e.clientX; pmy = e.clientY; }, { passive: true });
+
+  for (let i = 0; i < N; i++) {
+    const vx = (Math.random()-.5)*.22, vy = (Math.random()-.5)*.22;
+    pts.push({ x: Math.random()*W, y: Math.random()*H, r: Math.random()*1.3+.3,
+               vx, vy, bvx: vx, bvy: vy, maxA: Math.random()*.35+.05, a: 0 });
+  }
+
+  function frame() {
+    ctx.clearRect(0, 0, W, H);
+    for (const p of pts) {
+      if (pmx !== null) {
+        const dx=pmx-p.x, dy=pmy-p.y, d2=dx*dx+dy*dy;
+        if (d2<12100) { const f=(1-Math.sqrt(d2)/110)*.0032; p.vx-=dx*f; p.vy-=dy*f; }
+      }
+      p.vx+=(p.bvx-p.vx)*.04; p.vy+=(p.bvy-p.vy)*.04;
+      p.x+=p.vx; p.y+=p.vy;
+      if (p.x<0) p.x=W; else if (p.x>W) p.x=0;
+      if (p.y<0) p.y=H; else if (p.y>H) p.y=0;
+      const tgt = p.maxA * Math.max(.06, sp*1.5);
+      p.a += (Math.min(tgt,p.maxA)-p.a)*.02;
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.2832);
+      ctx.fillStyle = `rgba(199,93,60,${p.a})`; ctx.fill();
+    }
+    if (!mob) for (let i=0; i<pts.length; i++) for (let j=i+1; j<pts.length; j++) {
+      const dx=pts[i].x-pts[j].x, dy=pts[i].y-pts[j].y, d=Math.sqrt(dx*dx+dy*dy);
+      if (d<CD) {
+        const a=(1-d/CD)*.06*sp; if (a<.003) continue;
+        ctx.beginPath(); ctx.moveTo(pts[i].x,pts[i].y); ctx.lineTo(pts[j].x,pts[j].y);
+        ctx.strokeStyle=`rgba(199,93,60,${a})`; ctx.lineWidth=.4; ctx.stroke();
+      }
+    }
+    requestAnimationFrame(frame);
+  }
+  frame();
+  window._pScroll = v => { sp = v; };
+})();
+
+/* ══ SCROLL ════════════════════════════════════════════ */
+let raf = false;
+function onScroll() {
+  if (raf) return; raf = true;
+  requestAnimationFrame(() => {
+    const maxH = document.documentElement.scrollHeight - window.innerHeight;
+    const prog = maxH > 0 ? Math.min(window.scrollY/maxH, 1) : 0;
+    document.documentElement.style.setProperty('--s', prog);
+    const w = Math.round(prog*9);
+    document.body.style.backgroundColor = `rgb(${13+w},${13+Math.round(w*.45)},13)`;
+    if (window._pScroll) window._pScroll(prog);
+    raf = false;
+  });
+}
+window.addEventListener('scroll', onScroll, { passive: true });
+onScroll();
+
+/* ══ SCROLL REVEAL ════════════════════════════════════ */
+if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); obs.unobserve(e.target); } });
+  }, { threshold: .1 });
+  document.querySelectorAll('.rv').forEach(el => obs.observe(el));
+} else {
+  document.querySelectorAll('.rv').forEach(el => el.classList.add('on'));
+}
+</script>
+</body>
+</html>

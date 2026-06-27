@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Corporativo · TheSetUp</title>
+  <meta name="description" content="Eventos corporativos y de empresa en Sotogrande. TheSetUp.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    /* ── PAGE HERO ────────────────────────────────────── */
+    .page-hero {
+      min-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 5vw 10vh;
+      position: relative;
+      z-index: 1;
+    }
+
+    .ph-n {
+      display: block;
+      font-size: .5rem;
+      letter-spacing: .38em;
+      color: var(--tc);
+      margin-bottom: 1.8rem;
+      opacity: 0;
+      animation: fadeIn 1s .4s ease forwards;
+    }
+
+    .ph-h {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.5rem, 9vw, 10rem);
+      font-weight: 400;
+      letter-spacing: .06em;
+      line-height: 1;
+      opacity: 0;
+      animation: fadeIn 1.4s .6s ease forwards;
+    }
+
+    .ph-rule {
+      width: 44px;
+      height: 1px;
+      background: var(--tc);
+      margin: 2.8rem 0;
+      opacity: 0;
+      animation: fadeIn 1s 1s ease forwards;
+    }
+
+    .ph-sub {
+      font-size: clamp(.78rem, 1.4vw, .95rem);
+      color: rgba(245,240,232,.35);
+      letter-spacing: .04em;
+      max-width: 520px;
+      line-height: 1.75;
+      opacity: 0;
+      animation: fadeIn 1s 1.2s ease forwards;
+    }
+
+    /* ── INTRO SECTION ────────────────────────────────── */
+    .page-intro {
+      padding: 14vh 5vw 10vh;
+      max-width: 720px;
+    }
+
+    .page-intro p {
+      font-size: clamp(.88rem, 1.6vw, 1.05rem);
+      color: rgba(245,240,232,.52);
+      line-height: 1.9;
+      letter-spacing: .02em;
+    }
+
+    /* ── SERVICES ─────────────────────────────────────── */
+    .services-section {
+      padding: 0 0 18vh;
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (max-width: 640px) {
+      .page-hero { min-height: 70vh; padding-bottom: 8vh; }
+      .page-intro { padding: 10vh 5vw 8vh; }
+      .services-section { padding-bottom: 12vh; }
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="cvs" aria-hidden="true"></canvas>
+
+<!-- ── HEADER ──────────────────────────────────────────── -->
+<header>
+  <a href="index.html" class="wordmark" style="opacity:1" aria-label="TheSetUp — volver al inicio">TheSetUp</a>
+  <nav class="lang" aria-label="Language / Idioma">
+    <button class="lang-btn on" data-lang="en" aria-label="Switch to English" aria-pressed="true">EN</button>
+    <span class="lang-sep" aria-hidden="true">·</span>
+    <button class="lang-btn" data-lang="es" aria-label="Cambiar a español" aria-pressed="false">ES</button>
+  </nav>
+</header>
+
+<!-- ── PAGE HERO ───────────────────────────────────────── -->
+<section class="page-hero" aria-label="Corporativo">
+  <span class="ph-n" aria-hidden="true">02</span>
+  <h1 class="ph-h" data-en="Corporate" data-es="Corporativo">Corporate</h1>
+  <div class="ph-rule" aria-hidden="true"></div>
+  <p class="ph-sub"
+     data-en="Events built from a single concept."
+     data-es="Eventos construidos desde un concepto único.">Events built from a single concept.</p>
+</section>
+
+<!-- ── INTRO ───────────────────────────────────────────── -->
+<section class="page-intro rv" aria-label="Introducción">
+  <p data-en="We organise corporate events that break with standard formats. From intimate meetings in exclusive settings to product launches that leave a mark. Every format is designed from scratch, from a single concept, for companies and brands that expect something more."
+     data-es="Organizamos eventos de empresa que rompen con los formatos habituales. Desde reuniones íntimas en entornos exclusivos hasta lanzamientos de producto que dejan huella. Cada formato se diseña desde cero, desde un concepto único, para empresas y marcas que esperan algo más.">We organise corporate events that break with standard formats. From intimate meetings in exclusive settings to product launches that leave a mark. Every format is designed from scratch, from a single concept, for companies and brands that expect something more.</p>
+</section>
+
+<!-- ── SERVICES ────────────────────────────────────────── -->
+<section class="services-section" aria-label="Servicios">
+  <div class="srv-blocks">
+
+    <article class="srv-block rv">
+      <span class="srv-n" aria-hidden="true">I</span>
+      <h2 class="srv-h"
+          data-en="Corporate events &amp; company celebrations"
+          data-es="Eventos corporativos &amp; fiestas de empresa">Corporate events &amp; company celebrations</h2>
+      <p class="srv-desc"
+         data-en="Team dinners, year-end parties and company days with staging that goes well beyond the hotel ballroom."
+         data-es="Cenas de equipo, celebraciones de fin de año y jornadas de empresa con una puesta en escena que va mucho más allá del salón habitual.">Team dinners, year-end parties and company days with staging that goes well beyond the hotel ballroom.</p>
+    </article>
+
+    <article class="srv-block rv d1">
+      <span class="srv-n" aria-hidden="true">II</span>
+      <h2 class="srv-h"
+          data-en="Meetings &amp; professional gatherings"
+          data-es="Reuniones &amp; encuentros profesionales">Meetings &amp; professional gatherings</h2>
+      <p class="srv-desc"
+         data-en="Distinctive spaces for leadership retreats, private presentations and meetings where the setting is already part of the message."
+         data-es="Espacios singulares para retiros de dirección, presentaciones privadas y reuniones en las que el entorno forma parte del discurso.">Distinctive spaces for leadership retreats, private presentations and meetings where the setting is already part of the message.</p>
+    </article>
+
+    <article class="srv-block rv d2">
+      <span class="srv-n" aria-hidden="true">III</span>
+      <h2 class="srv-h"
+          data-en="Brand launches &amp; activations"
+          data-es="Lanzamientos &amp; activaciones de marca">Brand launches &amp; activations</h2>
+      <p class="srv-desc"
+         data-en="From concept to detail: spatial design, sensory atmosphere, timing and visual narrative aligned with your brand identity."
+         data-es="Del concepto al detalle: diseño del espacio, atmósfera sensorial, timing y narrativa visual alineados con la identidad de tu marca.">From concept to detail: spatial design, sensory atmosphere, timing and visual narrative aligned with your brand identity.</p>
+    </article>
+
+  </div>
+</section>
+
+<!-- ── CONTACT CTA ──────────────────────────────────────── -->
+<section class="contact-cta" aria-label="Contacto">
+  <span class="cta-eyebrow rv"
+        data-en="Let's talk"
+        data-es="Hablemos">Let's talk</span>
+  <p class="cta-h rv d1"
+     data-en="Tell us what you have in mind."
+     data-es="Cuéntanos qué tienes en mente.">Tell us what you have in mind.</p>
+  <a href="index.html#contact" class="cta-btn rv d2"
+     data-en="Get in touch"
+     data-es="Escríbenos">Get in touch</a>
+</section>
+
+<!-- ── FOOTER ──────────────────────────────────────────── -->
+<footer>
+  <a href="index.html" class="ft-w" style="text-decoration:none">TheSetUp</a>
+  <span class="ft-c">© 2025 · Sotogrande</span>
+</footer>
+
+
+<script>
+'use strict';
+
+/* ══ LANGUAGE ══════════════════════════════════════════ */
+const LANGS = ['en', 'es'];
+let lang = localStorage.getItem('tsu-lang') || 'en';
+if (!LANGS.includes(lang)) lang = 'en';
+
+function applyLang(l) {
+  lang = l;
+  document.documentElement.lang = l;
+  localStorage.setItem('tsu-lang', l);
+  document.querySelectorAll('[data-en]').forEach(el => { el.textContent = el.dataset[l]; });
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    const active = btn.dataset.lang === l;
+    btn.classList.toggle('on', active);
+    btn.setAttribute('aria-pressed', active.toString());
+  });
+}
+
+applyLang(lang);
+document.querySelectorAll('.lang-btn').forEach(btn => {
+  btn.addEventListener('click', () => applyLang(btn.dataset.lang));
+});
+
+/* ══ PARTICLES ══════════════════════════════════════════ */
+(function particles() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const cvs = document.getElementById('cvs');
+  const ctx = cvs.getContext('2d');
+  const mob = window.innerWidth < 640;
+  const N = mob ? 20 : 55;
+  const CD = 100;
+  let W, H, sp = 0, pmx = null, pmy = null;
+  const pts = [];
+
+  function resize() { W = cvs.width = window.innerWidth; H = cvs.height = window.innerHeight; }
+  resize();
+  window.addEventListener('resize', resize, { passive: true });
+  document.addEventListener('mousemove', e => { pmx = e.clientX; pmy = e.clientY; }, { passive: true });
+
+  for (let i = 0; i < N; i++) {
+    const vx = (Math.random()-.5)*.22, vy = (Math.random()-.5)*.22;
+    pts.push({ x: Math.random()*W, y: Math.random()*H, r: Math.random()*1.3+.3,
+               vx, vy, bvx: vx, bvy: vy, maxA: Math.random()*.35+.05, a: 0 });
+  }
+
+  function frame() {
+    ctx.clearRect(0, 0, W, H);
+    for (const p of pts) {
+      if (pmx !== null) {
+        const dx=pmx-p.x, dy=pmy-p.y, d2=dx*dx+dy*dy;
+        if (d2<12100) { const f=(1-Math.sqrt(d2)/110)*.0032; p.vx-=dx*f; p.vy-=dy*f; }
+      }
+      p.vx+=(p.bvx-p.vx)*.04; p.vy+=(p.bvy-p.vy)*.04;
+      p.x+=p.vx; p.y+=p.vy;
+      if (p.x<0) p.x=W; else if (p.x>W) p.x=0;
+      if (p.y<0) p.y=H; else if (p.y>H) p.y=0;
+      const tgt = p.maxA * Math.max(.06, sp*1.5);
+      p.a += (Math.min(tgt,p.maxA)-p.a)*.02;
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.2832);
+      ctx.fillStyle = `rgba(199,93,60,${p.a})`; ctx.fill();
+    }
+    if (!mob) for (let i=0; i<pts.length; i++) for (let j=i+1; j<pts.length; j++) {
+      const dx=pts[i].x-pts[j].x, dy=pts[i].y-pts[j].y, d=Math.sqrt(dx*dx+dy*dy);
+      if (d<CD) {
+        const a=(1-d/CD)*.06*sp; if (a<.003) continue;
+        ctx.beginPath(); ctx.moveTo(pts[i].x,pts[i].y); ctx.lineTo(pts[j].x,pts[j].y);
+        ctx.strokeStyle=`rgba(199,93,60,${a})`; ctx.lineWidth=.4; ctx.stroke();
+      }
+    }
+    requestAnimationFrame(frame);
+  }
+  frame();
+  window._pScroll = v => { sp = v; };
+})();
+
+/* ══ SCROLL ════════════════════════════════════════════ */
+let raf = false;
+function onScroll() {
+  if (raf) return; raf = true;
+  requestAnimationFrame(() => {
+    const maxH = document.documentElement.scrollHeight - window.innerHeight;
+    const prog = maxH > 0 ? Math.min(window.scrollY/maxH, 1) : 0;
+    document.documentElement.style.setProperty('--s', prog);
+    const w = Math.round(prog*9);
+    document.body.style.backgroundColor = `rgb(${13+w},${13+Math.round(w*.45)},13)`;
+    if (window._pScroll) window._pScroll(prog);
+    raf = false;
+  });
+}
+window.addEventListener('scroll', onScroll, { passive: true });
+onScroll();
+
+/* ══ SCROLL REVEAL ════════════════════════════════════ */
+if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); obs.unobserve(e.target); } });
+  }, { threshold: .1 });
+  document.querySelectorAll('.rv').forEach(el => obs.observe(el));
+} else {
+  document.querySelectorAll('.rv').forEach(el => el.classList.add('on'));
+}
+</script>
+</body>
+</html>

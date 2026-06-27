@@ -8,109 +8,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 
   <style>
-    /* ── RESET ─────────────────────────────────────────── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --bg:  #0d0d0d;
-      --fg:  #f5f0e8;
-      --tc:  #C75D3C;
-      --s:   0;   /* scroll progress 0–1, set by JS */
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--bg);
-      color: var(--fg);
-      font-family: 'Inter', sans-serif;
-      font-weight: 300;
-      overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-
-    /* Scroll-reactive centre glow */
-    body::after {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background: radial-gradient(
-        ellipse 70% 55% at 50% 50%,
-        rgba(199,93,60,calc(var(--s) * .075)) 0%,
-        transparent 70%
-      );
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    /* ── CANVAS ─────────────────────────────────────────── */
-    #cvs {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    /* ── HEADER ─────────────────────────────────────────── */
-    header {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 500;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 2rem 5vw;
-    }
-
-    .wordmark {
-      font-family: 'Playfair Display', serif;
-      font-size: .92rem;
-      font-weight: 700;
-      letter-spacing: .1em;
-      color: var(--fg);
-      text-decoration: none;
-      opacity: 0;        /* revealed by JS once hero is passed */
-      transition: opacity .7s ease;
-    }
-
-    /* Language selector */
-    .lang {
-      display: flex;
-      align-items: center;
-      gap: .65rem;
-    }
-
-    .lang-sep {
-      font-size: .55rem;
-      color: rgba(245,240,232,.18);
-      user-select: none;
-    }
-
-    .lang-btn {
-      background: none;
-      border: none;
-      font-family: 'Inter', sans-serif;
-      font-size: .58rem;
-      font-weight: 400;
-      letter-spacing: .22em;
-      text-transform: uppercase;
-      color: rgba(245,240,232,.25);
-      cursor: pointer;
-      padding: 0;
-      line-height: 1;
-      transition: color .35s ease;
-    }
-
-    .lang-btn.on  { color: var(--tc); }
-    .lang-btn:hover:not(.on) { color: rgba(245,240,232,.55); }
-
-    /* ── SECTIONS ────────────────────────────────────────── */
-    section { position: relative; z-index: 1; }
-
-    /* ── HERO ───────────────────────────────────────────── */
+    /* ── HERO ─────────────────────────────────────────── */
     #hero {
       height: 100svh;
       display: flex;
@@ -150,7 +51,6 @@
       animation: fadeIn 1s 1.25s ease forwards;
     }
 
-    /* Scroll cue */
     .scroll-cue {
       position: absolute;
       bottom: 3rem;
@@ -171,740 +71,217 @@
       animation: pulse 2.8s ease infinite;
     }
 
-    @keyframes pulse {
-      0%,100% { opacity: .2; }
-      50%      { opacity: .85; }
+    /* ── DOORS ────────────────────────────────────────── */
+    #doors { position: relative; z-index: 1; }
+
+    .doors-intro {
+      padding: 16vh 5vw 8vh;
+      text-align: center;
     }
 
-    /* ── CONCEPTS ────────────────────────────────────────── */
-    #concepts {
-      padding: 22vh 5vw 18vh;
-    }
-
-    .concept {
-      padding: 11vh 0;
-      border-top: 1px solid rgba(245,240,232,.05);
-      display: flex;
-      align-items: center;
-      gap: clamp(2.5rem, 6vw, 6rem);
-    }
-
-    .concept:last-child {
-      border-bottom: 1px solid rgba(245,240,232,.05);
-    }
-
-    .concept-n {
+    .doors-eyebrow {
+      font-size: .5rem;
+      letter-spacing: .38em;
+      text-transform: uppercase;
+      color: rgba(199,93,60,.45);
       display: block;
-      font-size: .55rem;
-      letter-spacing: .32em;
-      color: var(--tc);
-      margin-bottom: 1.9rem;
     }
 
-    .concept-h {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2.1rem, 4.5vw, 5.2rem);
-      font-weight: 400;
-      line-height: 1.08;
+    .doors-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: rgba(245,240,232,.035);
     }
 
-    .concept-note {
-      margin-top: 1.35rem;
-      font-size: .78rem;
-      color: rgba(245,240,232,.22);
-      letter-spacing: .04em;
-    }
-
-    .concept--flip { flex-direction: row-reverse; }
-
-    .concept-text { flex: 1; min-width: 0; }
-
-    .concept-img {
-      flex: 0 0 44%;
-      aspect-ratio: 3 / 2;
+    .door {
+      position: relative;
+      aspect-ratio: 4 / 3;
       overflow: hidden;
+      display: block;
+      text-decoration: none;
+      background: var(--bg);
     }
 
-    .concept-img img {
+    .door-img {
+      position: absolute;
+      inset: 0;
+    }
+
+    .door-img img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      filter: grayscale(100%) brightness(.62);
-      transition: filter .75s ease;
+      filter: grayscale(100%) brightness(.42);
+      transition: filter .85s ease, transform .9s ease;
       display: block;
     }
 
-    .concept:hover .concept-img img {
-      filter: grayscale(15%) brightness(.85);
+    .door:hover .door-img img,
+    .door:focus-visible .door-img img {
+      filter: grayscale(18%) brightness(.68);
+      transform: scale(1.04);
     }
 
-    /* ── SOTOGRANDE ──────────────────────────────────────── */
-    #sotogrande {
-      padding: 28vh 5vw 30vh;
-      text-align: center;
-    }
-
-    .soto-phrase {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.5rem, 2.8vw, 3rem);
-      font-weight: 400;
-      font-style: italic;
-      color: rgba(245,240,232,.7);
-      line-height: 1.45;
-      max-width: 680px;
-      margin: 0 auto;
-    }
-
-    /* ── CONTACT ─────────────────────────────────────────── */
-    #contact {
-      padding: 18vh 5vw 22vh;
-    }
-
-    .contact-h {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2.8rem, 5.5vw, 7rem);
-      font-weight: 400;
-      margin-bottom: 7rem;
-      letter-spacing: .02em;
-    }
-
-    .cform { max-width: 520px; }
-
-    .fg { margin-bottom: 3rem; }
-
-    .fg label {
-      display: block;
-      font-size: .56rem;
-      letter-spacing: .22em;
-      text-transform: uppercase;
-      color: rgba(245,240,232,.28);
-      margin-bottom: .7rem;
-      transition: color .3s ease;
-    }
-
-    .fg:focus-within label { color: var(--tc); }
-
-    .fg input,
-    .fg textarea {
-      width: 100%;
-      background: none;
-      border: none;
-      border-bottom: 1px solid rgba(245,240,232,.1);
-      padding: .7rem 0;
-      color: var(--fg);
-      font-family: 'Inter', sans-serif;
-      font-size: .95rem;
-      font-weight: 300;
-      outline: none;
-      transition: border-color .3s ease;
-      cursor: text;
-    }
-
-    .fg input:focus,
-    .fg textarea:focus   { border-bottom-color: var(--tc); }
-    .fg textarea         { resize: none; height: 100px; }
-
-    /* Focus ring for keyboard users */
-    .fg input:focus-visible,
-    .fg textarea:focus-visible { outline: 1px solid rgba(199,93,60,.4); outline-offset: 4px; }
-
-    .send-btn {
-      background: none;
-      border: none;
-      border-bottom: 1px solid rgba(199,93,60,.55);
-      color: rgba(199,93,60,.8);
-      font-family: 'Inter', sans-serif;
-      font-size: .6rem;
-      font-weight: 400;
-      letter-spacing: .28em;
-      text-transform: uppercase;
-      padding: .5rem 0;
-      cursor: pointer;
-      transition: color .3s ease, border-color .3s ease;
-    }
-
-    .send-btn:hover { color: var(--fg); border-color: rgba(245,240,232,.4); }
-
-    /* Focus ring for keyboard users */
-    .send-btn:focus-visible {
-      outline: 1px solid rgba(199,93,60,.5);
-      outline-offset: 6px;
-    }
-
-    #form-msg {
-      margin-top: 1.75rem;
-      font-size: .72rem;
-      letter-spacing: .06em;
-      color: var(--tc);
-      opacity: 0;
-      transition: opacity .45s ease;
-      height: 1em;
-    }
-
-    .contact-info {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2.5rem 5rem;
-      margin-top: 7rem;
-      padding-top: 3.5rem;
-      border-top: 1px solid rgba(245,240,232,.05);
-    }
-
-    .ci {
-      display: flex;
-      flex-direction: column;
-      gap: .45rem;
-    }
-
-    .ci-label {
-      font-size: .52rem;
-      letter-spacing: .32em;
-      text-transform: uppercase;
-      color: rgba(199,93,60,.7);
-    }
-
-    .ci-val {
-      font-size: .85rem;
-      color: rgba(245,240,232,.42);
-    }
-
-    /* ── FOOTER ─────────────────────────────────────────── */
-    footer {
-      position: relative;
-      z-index: 1;
-      padding: 2.5rem 5vw;
-      border-top: 1px solid rgba(245,240,232,.04);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .ft-w { font-family: 'Playfair Display', serif; font-size: .85rem; font-weight: 400; color: rgba(245,240,232,.35); }
-    .ft-c { font-size: .56rem; letter-spacing: .1em; color: rgba(245,240,232,.15); }
-
-    /* ── SCROLL REVEAL ───────────────────────────────────── */
-    .rv {
-      opacity: 0;
-      transform: translateY(14px);
-      transition: opacity 1.2s ease, transform 1.2s ease;
-    }
-
-    .rv.on { opacity: 1; transform: translateY(0); }
-    .rv.d1  { transition-delay: .1s; }
-    .rv.d2  { transition-delay: .22s; }
-    .rv.d3  { transition-delay: .34s; }
-
-    /* ── KEYFRAMES ───────────────────────────────────────── */
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to   { opacity: 1; }
-    }
-
-    /* ── PREFERS-REDUCED-MOTION ──────────────────────────── */
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: .01ms !important;
-        animation-delay:    .01ms !important;
-        transition-duration:.01ms !important;
-      }
-      .rv, .ag-rv, .ag-entry-rv { opacity: 1 !important; transform: none !important; filter: none !important; }
-      .hero-title, .hero-rule, .hero-sub, .scroll-cue { opacity: 1 !important; }
-      .wordmark { opacity: 1 !important; }
-      #cvs { display: none; }
-    }
-
-    /* ── RESPONSIVE ──────────────────────────────────────── */
-    @media (max-width: 768px) {
-      .concept,
-      .concept--flip { flex-direction: column; }
-      .concept-img { flex: none; width: 100%; aspect-ratio: 16 / 9; }
-    }
-
-    @media (max-width: 640px) {
-      header { padding: 1.5rem 5vw; }
-      footer { flex-direction: column; gap: .8rem; text-align: center; }
-      .contact-info { gap: 2rem 3rem; }
-      #concepts { padding: 18vh 5vw 14vh; }
-      .concept { padding: 9vh 0; }
-    }
-
-    /* ── AFTERGLOW ───────────────────────────────────── */
-    #afterglow {
-      position: relative;
-      padding: 28vh 5vw 30vh;
-      overflow: hidden;
-      text-align: center;
-      isolation: isolate;
-    }
-
-    #afterglow::before {
-      content: '';
+    .door-overlay {
       position: absolute;
       inset: 0;
-      background:
-        radial-gradient(ellipse 90% 50% at 50% 28%, rgba(199,93,60,.07), transparent 65%),
-        radial-gradient(ellipse 55% 32% at 50% 80%, rgba(199,93,60,.04), transparent 55%);
-      pointer-events: none;
-      z-index: -1;
-    }
-
-    .ag-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(3.5rem, 9vw, 11rem);
-      font-weight: 400;
-      letter-spacing: .1em;
-      line-height: 1;
-      text-shadow:
-        0 0 60px rgba(199,93,60,.38),
-        0 0 120px rgba(199,93,60,.12);
-    }
-
-    .ag-rule {
-      width: 1px;
-      height: 52px;
-      background: linear-gradient(to bottom, rgba(199,93,60,.65), transparent);
-      margin: 2.8rem auto;
-    }
-
-    .ag-tagline {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1rem, 2.2vw, 1.6rem);
-      font-weight: 400;
-      font-style: italic;
-      color: rgba(245,240,232,.5);
-      line-height: 1.65;
-      max-width: 600px;
-      margin: 0 auto;
-      letter-spacing: .02em;
-    }
-
-    .ag-concept {
-      max-width: 540px;
-      margin: 12vh auto 0;
-    }
-
-    .ag-concept p {
-      font-size: .88rem;
-      color: rgba(245,240,232,.38);
-      line-height: 1.9;
-      letter-spacing: .03em;
-    }
-
-    .ag-steps {
       display: flex;
-      justify-content: center;
-      gap: clamp(2rem, 5vw, 5rem);
-      margin: 14vh auto 0;
-      max-width: 860px;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: clamp(1.4rem, 3vw, 2.4rem);
+      background: linear-gradient(
+        to top,
+        rgba(13,13,13,.9) 0%,
+        rgba(13,13,13,.28) 45%,
+        transparent 72%
+      );
     }
 
-    .ag-step { flex: 1; min-width: 170px; max-width: 240px; }
-
-    .ag-step-n {
+    .door-n {
       display: block;
-      font-size: .5rem;
-      letter-spacing: .35em;
+      font-size: .46rem;
+      letter-spacing: .38em;
       color: var(--tc);
-      margin-bottom: 1.1rem;
+      margin-bottom: .65rem;
     }
 
-    .ag-step-h {
+    .door-h {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(1.05rem, 1.8vw, 1.35rem);
+      font-size: clamp(1.45rem, 3vw, 2.7rem);
       font-weight: 400;
       color: var(--fg);
-      margin-bottom: .7rem;
+      line-height: 1.05;
+      letter-spacing: .04em;
     }
 
-    .ag-step-note {
-      font-size: .73rem;
-      color: rgba(245,240,232,.27);
-      line-height: 1.65;
-    }
-
-    .ag-modalities {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1px;
-      max-width: 1000px;
-      margin: 14vh auto 0;
-      background: rgba(245,240,232,.04);
-      border: 1px solid rgba(245,240,232,.05);
-    }
-
-    .ag-card {
-      background: var(--bg);
-      padding: 2.5rem 1.8rem 2.2rem;
-      cursor: pointer;
-      text-align: left;
-      border: 1px solid transparent;
-      outline: none;
-      transition: border-color .45s ease, box-shadow .45s ease, background .45s ease;
-      position: relative;
-    }
-
-    .ag-card:hover,
-    .ag-card:focus-visible {
-      background: rgba(199,93,60,.025);
-      border-color: rgba(199,93,60,.4);
-      box-shadow: 0 0 28px rgba(199,93,60,.09), inset 0 0 20px rgba(199,93,60,.04);
-      z-index: 1;
-    }
-
-    .ag-card.ag-selected {
-      background: rgba(199,93,60,.04);
-      border-color: var(--tc);
-      box-shadow: 0 0 40px rgba(199,93,60,.16), inset 0 0 26px rgba(199,93,60,.06);
-      z-index: 2;
-    }
-
-    .ag-card-n {
+    .door-arrow {
       display: block;
-      font-size: .47rem;
-      letter-spacing: .28em;
-      color: rgba(199,93,60,.55);
-      margin-bottom: 1.3rem;
-    }
-
-    .ag-card-h {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(.95rem, 1.5vw, 1.2rem);
-      font-weight: 400;
-      color: var(--fg);
-      line-height: 1.2;
-      margin-bottom: .9rem;
-    }
-
-    .ag-card-desc {
-      font-size: .7rem;
-      color: rgba(245,240,232,.22);
-      line-height: 1.7;
-      transition: color .35s ease;
-    }
-
-    .ag-card:hover .ag-card-desc,
-    .ag-card.ag-selected .ag-card-desc { color: rgba(245,240,232,.44); }
-
-    .ag-secret {
-      margin: 16vh auto 0;
-      max-width: 480px;
-    }
-
-    .ag-secret-label {
-      font-size: .47rem;
-      letter-spacing: .32em;
+      margin-top: .65rem;
+      font-size: .48rem;
+      letter-spacing: .22em;
       text-transform: uppercase;
-      color: rgba(199,93,60,.48);
-      margin-bottom: 1.25rem;
-    }
-
-    .ag-coords {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.1rem, 2.5vw, 1.8rem);
-      font-weight: 400;
-      letter-spacing: .2em;
-      color: rgba(245,240,232,.18);
-      margin-bottom: 1.1rem;
-    }
-
-    .ag-redact-line {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: .55rem;
-      flex-wrap: wrap;
-      font-size: .78rem;
-      color: rgba(245,240,232,.14);
-      letter-spacing: .06em;
-    }
-
-    .ag-redact {
-      display: inline-block;
-      background: rgba(199,93,60,.72);
-      color: transparent;
-      border-radius: 1px;
-      padding: .08em .22em;
-      user-select: none;
-    }
-
-    .ag-cta { margin-top: 12vh; }
-
-    .ag-btn {
-      background: none;
-      border: 1px solid rgba(199,93,60,.32);
-      color: rgba(199,93,60,.82);
-      font-family: 'Inter', sans-serif;
-      font-size: .58rem;
-      font-weight: 400;
-      letter-spacing: .28em;
-      text-transform: uppercase;
-      padding: 1.1rem 3.5rem;
-      cursor: pointer;
-      transition: border-color .35s ease, color .35s ease, box-shadow .35s ease;
-    }
-
-    .ag-btn:hover {
-      border-color: rgba(199,93,60,.72);
-      color: var(--fg);
-      box-shadow: 0 0 22px rgba(199,93,60,.14);
-    }
-
-    .ag-btn:focus-visible {
-      outline: 1px solid rgba(199,93,60,.5);
-      outline-offset: 6px;
-    }
-
-    /* Afterglow reveal */
-    .ag-rv {
+      color: rgba(199,93,60,.65);
+      transform: translateX(-6px);
       opacity: 0;
-      transform: translateY(16px);
-      transition: opacity 1.4s ease, transform 1.4s ease;
-    }
-    .ag-rv.on { opacity: 1; transform: translateY(0); }
-    .ag-rv.d1 { transition-delay: .15s; }
-    .ag-rv.d2 { transition-delay: .32s; }
-    .ag-rv.d3 { transition-delay: .5s; }
-    .ag-rv.d4 { transition-delay: .68s; }
-
-    /* Title: emerge from darkness with blur dissolve */
-    .ag-entry-rv {
-      opacity: 0;
-      transform: scale(.985);
-      filter: blur(6px);
-      transition: opacity 2.2s ease, transform 2.2s ease, filter 2s ease;
-    }
-    .ag-entry-rv.on { opacity: 1; transform: scale(1); filter: blur(0); }
-
-    @media (max-width: 900px) {
-      .ag-modalities { grid-template-columns: repeat(2, 1fr); }
+      transition: opacity .4s ease, transform .4s ease;
     }
 
-    @media (max-width: 640px) {
-      #afterglow { padding: 20vh 5vw 22vh; }
-      .ag-modalities { grid-template-columns: 1fr; max-width: 100%; }
-      .ag-steps { flex-direction: column; align-items: center; gap: 3.5rem; }
-      .ag-step { min-width: 0; max-width: 340px; width: 100%; }
+    .door:hover .door-arrow,
+    .door:focus-visible .door-arrow { opacity: 1; transform: translateX(0); }
+
+    .door:focus-visible {
+      outline: 2px solid rgba(199,93,60,.55);
+      outline-offset: -2px;
+    }
+
+    @media (max-width: 768px) {
+      .doors-grid { grid-template-columns: 1fr; }
+      .door { aspect-ratio: 16 / 9; }
+    }
+
+    @media (max-width: 480px) {
+      .door { aspect-ratio: 3 / 2; }
+      .doors-intro { padding: 12vh 5vw 6vh; }
     }
   </style>
 </head>
 <body>
 
-<!-- Particles -->
 <canvas id="cvs" aria-hidden="true"></canvas>
 
-<!-- ── HEADER ────────────────────────────────── -->
+<!-- ── HEADER ──────────────────────────────────────────── -->
 <header>
-  <a href="#" class="wordmark" id="wm" aria-label="TheSetUp — inicio">TheSetUp</a>
-
+  <a href="index.html" class="wordmark" id="wm" style="opacity:0" aria-label="TheSetUp — inicio">TheSetUp</a>
   <nav class="lang" aria-label="Language / Idioma">
     <button class="lang-btn on" data-lang="en" aria-label="Switch to English" aria-pressed="true">EN</button>
     <span class="lang-sep" aria-hidden="true">·</span>
-    <button class="lang-btn"    data-lang="es" aria-label="Cambiar a español" aria-pressed="false">ES</button>
+    <button class="lang-btn" data-lang="es" aria-label="Cambiar a español" aria-pressed="false">ES</button>
   </nav>
 </header>
 
-<!-- ── HERO ──────────────────────────────────── -->
+<!-- ── HERO ────────────────────────────────────────────── -->
 <section id="hero" aria-label="TheSetUp">
   <h1 class="hero-title">TheSetUp</h1>
   <div class="hero-rule" aria-hidden="true"></div>
   <p class="hero-sub"
      data-en="Experiences · Sotogrande"
      data-es="Experiencias · Sotogrande">Experiences · Sotogrande</p>
-
   <div class="scroll-cue" aria-hidden="true">
     <div class="scroll-cue-line"></div>
   </div>
 </section>
 
-<!-- ── CONCEPTS ───────────────────────────────── -->
-<section id="concepts" aria-label="Services">
+<!-- ── DOORS ───────────────────────────────────────────── -->
+<section id="doors" aria-label="Experiencias">
+  <div class="doors-intro rv">
+    <span class="doors-eyebrow"
+          data-en="Choose your experience"
+          data-es="Elige tu experiencia">Choose your experience</span>
+  </div>
 
-  <!-- 01 · imagen izquierda, texto derecha -->
-  <article class="concept rv">
-    <div class="concept-img">
-      <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&amp;h=534&amp;fit=crop&amp;q=80"
-           alt="" role="presentation" loading="lazy">
-    </div>
-    <div class="concept-text">
-      <span class="concept-n" aria-hidden="true">01</span>
-      <h2 class="concept-h"
-          data-en="Bespoke private events"
-          data-es="Eventos privados a medida">Bespoke private events</h2>
-      <p class="concept-note"
-         data-en="Designed from a single concept."
-         data-es="Diseñados desde un concepto único.">Designed from a single concept.</p>
-    </div>
-  </article>
+  <div class="doors-grid">
 
-  <!-- 02 · texto izquierda, imagen derecha -->
-  <article class="concept concept--flip rv d1">
-    <div class="concept-img">
-      <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&amp;h=534&amp;fit=crop&amp;q=80"
-           alt="" role="presentation" loading="lazy">
-    </div>
-    <div class="concept-text">
-      <span class="concept-n" aria-hidden="true">02</span>
-      <h2 class="concept-h"
-          data-en="Brand experiences"
-          data-es="Experiencias de marca">Brand experiences</h2>
-      <p class="concept-note"
-         data-en="Identity through emotion."
-         data-es="Identidad a través de la emoción.">Identity through emotion.</p>
-    </div>
-  </article>
+    <!-- 01 · Afterglow -->
+    <a href="afterglow.html" class="door" aria-label="Afterglow">
+      <div class="door-img">
+        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&h=600&fit=crop&q=80"
+             alt="" role="presentation" loading="lazy">
+      </div>
+      <div class="door-overlay">
+        <span class="door-n" aria-hidden="true">01</span>
+        <h2 class="door-h">Afterglow</h2>
+        <span class="door-arrow" aria-hidden="true">→</span>
+      </div>
+    </a>
 
-  <!-- 03 · imagen izquierda, texto derecha -->
-  <article class="concept rv d2">
-    <div class="concept-img">
-      <img src="https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=800&amp;h=534&amp;fit=crop&amp;q=80"
-           alt="" role="presentation" loading="lazy">
-    </div>
-    <div class="concept-text">
-      <span class="concept-n" aria-hidden="true">03</span>
-      <h2 class="concept-h"
-          data-en="Seasonal pop-ups"
-          data-es="Pop-ups estacionales">Seasonal pop-ups</h2>
-      <p class="concept-note"
-         data-en="Moments that outlast the season."
-         data-es="Momentos que van más allá de la temporada.">Moments that outlast the season.</p>
-    </div>
-  </article>
+    <!-- 02 · Corporativo -->
+    <a href="corporativo.html" class="door" aria-label="Corporativo">
+      <div class="door-img">
+        <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=900&h=600&fit=crop&q=80"
+             alt="" role="presentation" loading="lazy">
+      </div>
+      <div class="door-overlay">
+        <span class="door-n" aria-hidden="true">02</span>
+        <h2 class="door-h"
+            data-en="Corporate"
+            data-es="Corporativo">Corporate</h2>
+        <span class="door-arrow" aria-hidden="true">→</span>
+      </div>
+    </a>
 
-  <!-- 04 · texto izquierda, imagen derecha -->
-  <article class="concept concept--flip rv d3">
-    <div class="concept-img">
-      <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=800&amp;h=534&amp;fit=crop&amp;q=80"
-           alt="" role="presentation" loading="lazy">
-    </div>
-    <div class="concept-text">
-      <span class="concept-n" aria-hidden="true">04</span>
-      <h2 class="concept-h"
-          data-en="Creative direction"
-          data-es="Dirección creativa">Creative direction</h2>
-      <p class="concept-note"
-         data-en="Atmosphere, scenography, sensory design."
-         data-es="Atmósfera, escenografía, diseño sensorial.">Atmosphere, scenography, sensory design.</p>
-    </div>
-  </article>
+    <!-- 03 · Pre bodas -->
+    <a href="prebodas.html" class="door" aria-label="Pre bodas">
+      <div class="door-img">
+        <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=900&h=600&fit=crop&q=80"
+             alt="" role="presentation" loading="lazy">
+      </div>
+      <div class="door-overlay">
+        <span class="door-n" aria-hidden="true">03</span>
+        <h2 class="door-h"
+            data-en="Pre-wedding"
+            data-es="Pre bodas">Pre-wedding</h2>
+        <span class="door-arrow" aria-hidden="true">→</span>
+      </div>
+    </a>
 
+    <!-- 04 · Daylight -->
+    <a href="daylight.html" class="door" aria-label="Daylight">
+      <div class="door-img">
+        <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=900&h=600&fit=crop&q=80"
+             alt="" role="presentation" loading="lazy">
+      </div>
+      <div class="door-overlay">
+        <span class="door-n" aria-hidden="true">04</span>
+        <h2 class="door-h">Daylight</h2>
+        <span class="door-arrow" aria-hidden="true">→</span>
+      </div>
+    </a>
+
+  </div>
 </section>
 
-<!-- ── AFTERGLOW ─────────────────────────────── -->
-<section id="afterglow" aria-label="Afterglow">
-
-  <!-- 1 · Entrada -->
-  <div class="ag-entry-rv" id="ag-entry">
-    <h2 class="ag-title">Afterglow</h2>
-    <div class="ag-rule" aria-hidden="true"></div>
-    <p class="ag-tagline"
-       data-en="A secret place. One single night. An experience that never repeats."
-       data-es="Un lugar secreto. Una sola noche. Una experiencia que no se repite.">A secret place. One single night. An experience that never repeats.</p>
-  </div>
-
-  <!-- 2 · Concepto -->
-  <div class="ag-concept ag-rv d1">
-    <p data-en="Secret experiences designed in locations that normally remain closed. No itinerary, no advance photos. You only find out where you are going when you arrive. The mystery is not a detail — it is the whole product."
-       data-es="Experiencias diseñadas en secreto, en lugares que normalmente permanecen cerrados. Sin itinerario, sin fotos previas. Solo sabes adónde vas cuando llegas. El misterio no es un detalle — es el producto.">Secret experiences designed in locations that normally remain closed. No itinerary, no advance photos. You only find out where you are going when you arrive. The mystery is not a detail — it is the whole product.</p>
-  </div>
-
-  <!-- 3 · Cómo funciona -->
-  <div class="ag-steps">
-    <div class="ag-step ag-rv d1">
-      <span class="ag-step-n" aria-hidden="true">01</span>
-      <h3 class="ag-step-h"
-          data-en="Book blind"
-          data-es="Reservas a ciegas">Book blind</h3>
-      <p class="ag-step-note"
-         data-en="Trust your night without knowing the destination."
-         data-es="Confías tu noche sin saber el destino.">Trust your night without knowing the destination.</p>
-    </div>
-    <div class="ag-step ag-rv d2">
-      <span class="ag-step-n" aria-hidden="true">02</span>
-      <h3 class="ag-step-h"
-          data-en="Follow the clues"
-          data-es="Recibes pistas">Follow the clues</h3>
-      <p class="ag-step-note"
-         data-en="The secret unfolds little by little."
-         data-es="El secreto se desvela poco a poco.">The secret unfolds little by little.</p>
-    </div>
-    <div class="ag-step ag-rv d3">
-      <span class="ag-step-n" aria-hidden="true">03</span>
-      <h3 class="ag-step-h"
-          data-en="Live it"
-          data-es="Lo vives">Live it</h3>
-      <p class="ag-step-note"
-         data-en="You discover the place only when you arrive."
-         data-es="Descubres el lugar solo al llegar.">You discover the place only when you arrive.</p>
-    </div>
-  </div>
-
-  <!-- 4 · Modalidades -->
-  <div class="ag-modalities ag-rv d2" role="group" aria-label="Afterglow modalities">
-    <article class="ag-card" tabindex="0"
-             data-modality-en="Secret tastings" data-modality-es="Catas secretas">
-      <span class="ag-card-n" aria-hidden="true">I</span>
-      <h3 class="ag-card-h"
-          data-en="Secret tastings"
-          data-es="Catas secretas">Secret tastings</h3>
-      <p class="ag-card-desc"
-         data-en="Wine and spirits in places that appear on no map."
-         data-es="Vino y destilados en lugares que no aparecen en ningún mapa.">Wine and spirits in places that appear on no map.</p>
-    </article>
-    <article class="ag-card" tabindex="0"
-             data-modality-en="Forbidden dinners" data-modality-es="Cenas prohibidas">
-      <span class="ag-card-n" aria-hidden="true">II</span>
-      <h3 class="ag-card-h"
-          data-en="Forbidden dinners"
-          data-es="Cenas prohibidas">Forbidden dinners</h3>
-      <p class="ag-card-desc"
-         data-en="Tables in spaces with restricted access."
-         data-es="Mesas en espacios de acceso restringido.">Tables in spaces with restricted access.</p>
-    </article>
-    <article class="ag-card" tabindex="0"
-             data-modality-en="Sunset aboard" data-modality-es="Sunset a bordo">
-      <span class="ag-card-n" aria-hidden="true">III</span>
-      <h3 class="ag-card-h"
-          data-en="Sunset aboard"
-          data-es="Sunset a bordo">Sunset aboard</h3>
-      <p class="ag-card-desc"
-         data-en="A voyage at dusk toward a destination you only know when you set sail."
-         data-es="Una travesía al atardecer hacia un destino que solo conoces al zarpar.">A voyage at dusk toward a destination you only know when you set sail.</p>
-    </article>
-    <article class="ag-card" tabindex="0"
-             data-modality-en="Carte blanche" data-modality-es="Carta blanca">
-      <span class="ag-card-n" aria-hidden="true">IV</span>
-      <h3 class="ag-card-h"
-          data-en="Carte blanche"
-          data-es="Carta blanca">Carte blanche</h3>
-      <p class="ag-card-desc"
-         data-en="You choose nothing. Trust your night entirely and we design something unrepeatable."
-         data-es="No eliges formato; confías tu noche por completo y diseñamos algo irrepetible.">You choose nothing. Trust your night entirely and we design something unrepeatable.</p>
-    </article>
-  </div>
-
-  <!-- 5 · Localización censurada -->
-  <div class="ag-secret ag-rv d3">
-    <p class="ag-secret-label"
-       data-en="Next location"
-       data-es="Próxima localización">Next location</p>
-    <p class="ag-coords" aria-label="Hidden coordinates">36°16′N · 5°22′W</p>
-    <p class="ag-redact-line" aria-hidden="true">
-      <span class="ag-redact">███████████</span>
-      <span>de</span>
-      <span class="ag-redact">████████</span>
-    </p>
-  </div>
-
-  <!-- 6 · CTA -->
-  <div class="ag-cta ag-rv d4">
-    <button class="ag-btn" id="ag-access-btn"
-            data-en="Request access"
-            data-es="Solicita acceso">Request access</button>
-  </div>
-
-</section>
-
-<!-- ── SOTOGRANDE ─────────────────────────────── -->
+<!-- ── SOTOGRANDE ──────────────────────────────────────── -->
 <section id="sotogrande" aria-label="Sotogrande">
   <p class="soto-phrase rv"
      data-en="Where the different ones gather."
@@ -913,7 +290,7 @@
   </p>
 </section>
 
-<!-- ── CONTACT ────────────────────────────────── -->
+<!-- ── CONTACT ─────────────────────────────────────────── -->
 <section id="contact">
   <h2 class="contact-h rv"
       data-en="Contact"
@@ -921,24 +298,19 @@
 
   <form class="cform rv d1" id="cform" novalidate aria-label="Contact form">
     <div class="fg">
-      <label for="f-name"
-             data-en="Name"
-             data-es="Nombre">Name</label>
-      <input type="text"  id="f-name" name="name"    autocomplete="name"  required aria-required="true">
+      <label for="f-name" data-en="Name" data-es="Nombre">Name</label>
+      <input type="text" id="f-name" name="name" autocomplete="name" required aria-required="true">
     </div>
     <div class="fg">
       <label for="f-email">Email</label>
-      <input type="email" id="f-email" name="email"   autocomplete="email" required aria-required="true">
+      <input type="email" id="f-email" name="email" autocomplete="email" required aria-required="true">
     </div>
     <div class="fg">
-      <label for="f-msg"
-             data-en="Message"
-             data-es="Mensaje">Message</label>
-      <textarea           id="f-msg"  name="message"                       required aria-required="true"></textarea>
+      <label for="f-msg" data-en="Message" data-es="Mensaje">Message</label>
+      <textarea id="f-msg" name="message" required aria-required="true"></textarea>
     </div>
     <button type="submit" class="send-btn"
-            data-en="Send"
-            data-es="Enviar">Send</button>
+            data-en="Send" data-es="Enviar">Send</button>
     <p id="form-msg" role="status" aria-live="polite"></p>
   </form>
 
@@ -948,21 +320,17 @@
       <span class="ci-val">hola@thesetup.es</span>
     </div>
     <div class="ci">
-      <span class="ci-label"
-            data-en="Phone"
-            data-es="Teléfono">Phone</span>
+      <span class="ci-label" data-en="Phone" data-es="Teléfono">Phone</span>
       <span class="ci-val">+34 000 000 000</span>
     </div>
     <div class="ci">
-      <span class="ci-label"
-            data-en="Location"
-            data-es="Sede">Location</span>
+      <span class="ci-label" data-en="Location" data-es="Sede">Location</span>
       <span class="ci-val">Sotogrande, Cádiz</span>
     </div>
   </div>
 </section>
 
-<!-- ── FOOTER ─────────────────────────────────── -->
+<!-- ── FOOTER ──────────────────────────────────────────── -->
 <footer>
   <span class="ft-w">TheSetUp</span>
   <span class="ft-c">© 2025 · Sotogrande</span>
@@ -972,13 +340,13 @@
 <script>
 'use strict';
 
-/* ════════════════════════════════════════════════════
+/* ══════════════════════════════════════════════════
    LANGUAGE SYSTEM
-   ════════════════════════════════════════════════════ */
-const LANGS  = ['en', 'es'];
-const FMSGS  = {
+══════════════════════════════════════════════════ */
+const LANGS = ['en', 'es'];
+const FMSGS = {
   ok:   { en: "Message sent. We'll be in touch.",  es: 'Mensaje enviado. Nos ponemos en contacto pronto.' },
-  miss: { en: 'Please fill in all fields.',        es: 'Por favor, completa todos los campos.'           }
+  miss: { en: 'Please fill in all fields.',        es: 'Por favor, completa todos los campos.' }
 };
 
 let lang = localStorage.getItem('tsu-lang') || 'en';
@@ -988,11 +356,7 @@ function applyLang(l) {
   lang = l;
   document.documentElement.lang = l;
   localStorage.setItem('tsu-lang', l);
-
-  document.querySelectorAll('[data-en]').forEach(el => {
-    el.textContent = el.dataset[l];
-  });
-
+  document.querySelectorAll('[data-en]').forEach(el => { el.textContent = el.dataset[l]; });
   document.querySelectorAll('.lang-btn').forEach(btn => {
     const active = btn.dataset.lang === l;
     btn.classList.toggle('on', active);
@@ -1000,90 +364,61 @@ function applyLang(l) {
   });
 }
 
-applyLang(lang);  /* apply on load */
+applyLang(lang);
 
 document.querySelectorAll('.lang-btn').forEach(btn => {
   btn.addEventListener('click', () => applyLang(btn.dataset.lang));
 });
 
-/* ════════════════════════════════════════════════════
+/* ══════════════════════════════════════════════════
    PARTICLES
-   ════════════════════════════════════════════════════ */
+══════════════════════════════════════════════════ */
 (function particles() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
   const cvs = document.getElementById('cvs');
   const ctx = cvs.getContext('2d');
   const mob = window.innerWidth < 640;
   const N   = mob ? 24 : 72;
-  const CD  = 100;   /* connection distance */
-
+  const CD  = 100;
   let W, H, sp = 0, pmx = null, pmy = null;
   const pts = [];
 
-  function resize() {
-    W = cvs.width  = window.innerWidth;
-    H = cvs.height = window.innerHeight;
-  }
+  function resize() { W = cvs.width = window.innerWidth; H = cvs.height = window.innerHeight; }
   resize();
   window.addEventListener('resize', resize, { passive: true });
-
-  document.addEventListener('mousemove', e => {
-    pmx = e.clientX;
-    pmy = e.clientY;
-  }, { passive: true });
+  document.addEventListener('mousemove', e => { pmx = e.clientX; pmy = e.clientY; }, { passive: true });
 
   for (let i = 0; i < N; i++) {
-    const vx = (Math.random() - .5) * .22;
-    const vy = (Math.random() - .5) * .22;
+    const vx = (Math.random() - .5) * .22, vy = (Math.random() - .5) * .22;
     pts.push({ x: Math.random()*W, y: Math.random()*H, r: Math.random()*1.3+.3,
                vx, vy, bvx: vx, bvy: vy, maxA: Math.random()*.35+.05, a: 0 });
   }
 
   function frame() {
     ctx.clearRect(0, 0, W, H);
-
     for (const p of pts) {
       if (pmx !== null) {
-        const dx = pmx - p.x, dy = pmy - p.y;
-        const d2 = dx*dx + dy*dy;
-        if (d2 < 12100) {
-          const f = (1 - Math.sqrt(d2)/110) * .0032;
-          p.vx -= dx * f;
-          p.vy -= dy * f;
-        }
+        const dx = pmx - p.x, dy = pmy - p.y, d2 = dx*dx + dy*dy;
+        if (d2 < 12100) { const f = (1 - Math.sqrt(d2)/110) * .0032; p.vx -= dx*f; p.vy -= dy*f; }
       }
-      p.vx += (p.bvx - p.vx) * .04;
-      p.vy += (p.bvy - p.vy) * .04;
-      p.x  += p.vx;
-      p.y  += p.vy;
+      p.vx += (p.bvx - p.vx) * .04; p.vy += (p.bvy - p.vy) * .04;
+      p.x  += p.vx; p.y += p.vy;
       if (p.x < 0) p.x = W; else if (p.x > W) p.x = 0;
       if (p.y < 0) p.y = H; else if (p.y > H) p.y = 0;
-
       const tgt = p.maxA * Math.max(.02, sp * 1.35);
       p.a += (Math.min(tgt, p.maxA) - p.a) * .02;
-
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, 6.2832);
-      ctx.fillStyle = `rgba(199,93,60,${p.a})`;
-      ctx.fill();
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.2832);
+      ctx.fillStyle = `rgba(199,93,60,${p.a})`; ctx.fill();
     }
-
-    /* Connection lines — desktop only */
     if (!mob) {
       for (let i = 0; i < pts.length; i++) {
         for (let j = i+1; j < pts.length; j++) {
-          const dx = pts[i].x-pts[j].x, dy = pts[i].y-pts[j].y;
-          const d  = Math.sqrt(dx*dx+dy*dy);
+          const dx = pts[i].x-pts[j].x, dy = pts[i].y-pts[j].y, d = Math.sqrt(dx*dx+dy*dy);
           if (d < CD) {
             const a = (1 - d/CD) * .055 * sp;
             if (a < .003) continue;
-            ctx.beginPath();
-            ctx.moveTo(pts[i].x, pts[i].y);
-            ctx.lineTo(pts[j].x, pts[j].y);
-            ctx.strokeStyle = `rgba(199,93,60,${a})`;
-            ctx.lineWidth = .4;
-            ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(pts[i].x, pts[i].y); ctx.lineTo(pts[j].x, pts[j].y);
+            ctx.strokeStyle = `rgba(199,93,60,${a})`; ctx.lineWidth = .4; ctx.stroke();
           }
         }
       }
@@ -1091,14 +426,12 @@ document.querySelectorAll('.lang-btn').forEach(btn => {
     requestAnimationFrame(frame);
   }
   frame();
-
   window._pScroll = v => { sp = v; };
 })();
 
-/* ════════════════════════════════════════════════════
-   SCROLL  — progress, bg warmth, particle opacity,
-             wordmark reveal
-   ════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════
+   SCROLL — progress, warmth, wordmark reveal
+══════════════════════════════════════════════════ */
 const wm   = document.getElementById('wm');
 const hero = document.getElementById('hero');
 let raf    = false;
@@ -1109,22 +442,14 @@ function onScroll() {
   requestAnimationFrame(() => {
     const maxH = document.documentElement.scrollHeight - window.innerHeight;
     const prog = maxH > 0 ? Math.min(window.scrollY / maxH, 1) : 0;
-
     document.documentElement.style.setProperty('--s', prog);
-
-    /* Subtle background warmth */
     const w = Math.round(prog * 9);
     document.body.style.backgroundColor = `rgb(${13+w},${13+Math.round(w*.45)},13)`;
-
-    /* Particles */
     if (window._pScroll) window._pScroll(prog);
-
-    /* Reveal wordmark once hero is mostly scrolled past */
     if (wm && hero) {
       const threshold = hero.offsetHeight * .72;
       wm.style.opacity = window.scrollY > threshold ? '1' : '0';
     }
-
     raf = false;
   });
 }
@@ -1132,95 +457,28 @@ function onScroll() {
 window.addEventListener('scroll', onScroll, { passive: true });
 onScroll();
 
-/* ════════════════════════════════════════════════════
-   INTERSECTION OBSERVER  — scroll reveal
-   ════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════
+   SCROLL REVEAL
+══════════════════════════════════════════════════ */
 if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
   const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('on'); obs.unobserve(e.target); }
-    });
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); obs.unobserve(e.target); } });
   }, { threshold: .1 });
-
   document.querySelectorAll('.rv').forEach(el => obs.observe(el));
 } else {
   document.querySelectorAll('.rv').forEach(el => el.classList.add('on'));
 }
 
-/* ════════════════════════════════════════════════════
-   AFTERGLOW
-   ════════════════════════════════════════════════════ */
-(function afterglow() {
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const agEntry = document.getElementById('ag-entry');
-  const agRvEls = document.querySelectorAll('.ag-rv');
-
-  if (reduced) {
-    if (agEntry) agEntry.classList.add('on');
-    agRvEls.forEach(el => el.classList.add('on'));
-  } else {
-    const agObs = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) { e.target.classList.add('on'); agObs.unobserve(e.target); }
-      });
-    }, { threshold: .08 });
-    if (agEntry) agObs.observe(agEntry);
-    agRvEls.forEach(el => agObs.observe(el));
-  }
-
-  /* Card selection */
-  let sel = null;
-  document.querySelectorAll('.ag-card').forEach(card => {
-    const toggle = () => {
-      if (sel === card) {
-        card.classList.remove('ag-selected');
-        card.removeAttribute('aria-pressed');
-        sel = null;
-      } else {
-        if (sel) { sel.classList.remove('ag-selected'); sel.removeAttribute('aria-pressed'); }
-        card.classList.add('ag-selected');
-        card.setAttribute('aria-pressed', 'true');
-        sel = card;
-      }
-    };
-    card.addEventListener('click', toggle);
-    card.addEventListener('keydown', e => {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
-    });
-  });
-
-  /* CTA → contact, pre-fill modality */
-  const agBtn = document.getElementById('ag-access-btn');
-  const fMsg  = document.getElementById('f-msg');
-  if (agBtn) {
-    agBtn.addEventListener('click', () => {
-      if (sel && fMsg) {
-        const l  = document.documentElement.lang || 'en';
-        const mn = l === 'es' ? sel.dataset.modalityEs : sel.dataset.modalityEn;
-        if (mn) {
-          fMsg.value = l === 'es'
-            ? `Modalidad Afterglow: ${mn}\n\n`
-            : `Afterglow modality: ${mn}\n\n`;
-        }
-      }
-      const contact = document.getElementById('contact');
-      if (contact) contact.scrollIntoView({ behavior: 'smooth' });
-    });
-  }
-})();
-
-/* ════════════════════════════════════════════════════
+/* ══════════════════════════════════════════════════
    FORM
-   ════════════════════════════════════════════════════ */
+══════════════════════════════════════════════════ */
 const form = document.getElementById('cform');
 const fmsg = document.getElementById('form-msg');
 
 if (form && fmsg) {
   form.addEventListener('submit', e => {
     e.preventDefault();
-    const filled = ['f-name','f-email','f-msg'].every(id => {
-      return document.getElementById(id).value.trim().length > 0;
-    });
+    const filled = ['f-name','f-email','f-msg'].every(id => document.getElementById(id).value.trim().length > 0);
     const m = filled ? FMSGS.ok[lang] : FMSGS.miss[lang];
     fmsg.textContent = m;
     fmsg.style.opacity = '1';

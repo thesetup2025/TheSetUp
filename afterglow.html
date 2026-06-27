@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Afterglow · TheSetUp</title>
+  <meta name="description" content="Afterglow — experiencias secretas en Sotogrande. TheSetUp.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    /* ── AFTERGLOW PAGE ───────────────────────────────── */
+    #afterglow {
+      position: relative;
+      padding: 28vh 5vw 30vh;
+      overflow: hidden;
+      text-align: center;
+      isolation: isolate;
+    }
+
+    #afterglow::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 90% 50% at 50% 28%, rgba(199,93,60,.07), transparent 65%),
+        radial-gradient(ellipse 55% 32% at 50% 80%, rgba(199,93,60,.04), transparent 55%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .ag-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.5rem, 9vw, 11rem);
+      font-weight: 400;
+      letter-spacing: .1em;
+      line-height: 1;
+      text-shadow:
+        0 0 60px rgba(199,93,60,.38),
+        0 0 120px rgba(199,93,60,.12);
+    }
+
+    .ag-rule {
+      width: 1px;
+      height: 52px;
+      background: linear-gradient(to bottom, rgba(199,93,60,.65), transparent);
+      margin: 2.8rem auto;
+    }
+
+    .ag-tagline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1rem, 2.2vw, 1.6rem);
+      font-weight: 400;
+      font-style: italic;
+      color: rgba(245,240,232,.5);
+      line-height: 1.65;
+      max-width: 600px;
+      margin: 0 auto;
+      letter-spacing: .02em;
+    }
+
+    .ag-concept {
+      max-width: 540px;
+      margin: 12vh auto 0;
+    }
+
+    .ag-concept p {
+      font-size: .88rem;
+      color: rgba(245,240,232,.38);
+      line-height: 1.9;
+      letter-spacing: .03em;
+    }
+
+    .ag-steps {
+      display: flex;
+      justify-content: center;
+      gap: clamp(2rem, 5vw, 5rem);
+      margin: 14vh auto 0;
+      max-width: 860px;
+    }
+
+    .ag-step { flex: 1; min-width: 170px; max-width: 240px; }
+
+    .ag-step-n {
+      display: block;
+      font-size: .5rem;
+      letter-spacing: .35em;
+      color: var(--tc);
+      margin-bottom: 1.1rem;
+    }
+
+    .ag-step-h {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.05rem, 1.8vw, 1.35rem);
+      font-weight: 400;
+      color: var(--fg);
+      margin-bottom: .7rem;
+    }
+
+    .ag-step-note {
+      font-size: .73rem;
+      color: rgba(245,240,232,.27);
+      line-height: 1.65;
+    }
+
+    .ag-modalities {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      max-width: 1000px;
+      margin: 14vh auto 0;
+      background: rgba(245,240,232,.04);
+      border: 1px solid rgba(245,240,232,.05);
+    }
+
+    .ag-card {
+      background: var(--bg);
+      padding: 2.5rem 1.8rem 2.2rem;
+      cursor: pointer;
+      text-align: left;
+      border: 1px solid transparent;
+      outline: none;
+      transition: border-color .45s ease, box-shadow .45s ease, background .45s ease;
+      position: relative;
+    }
+
+    .ag-card:hover,
+    .ag-card:focus-visible {
+      background: rgba(199,93,60,.025);
+      border-color: rgba(199,93,60,.4);
+      box-shadow: 0 0 28px rgba(199,93,60,.09), inset 0 0 20px rgba(199,93,60,.04);
+      z-index: 1;
+    }
+
+    .ag-card.ag-selected {
+      background: rgba(199,93,60,.04);
+      border-color: var(--tc);
+      box-shadow: 0 0 40px rgba(199,93,60,.16), inset 0 0 26px rgba(199,93,60,.06);
+      z-index: 2;
+    }
+
+    .ag-card-n {
+      display: block;
+      font-size: .47rem;
+      letter-spacing: .28em;
+      color: rgba(199,93,60,.55);
+      margin-bottom: 1.3rem;
+    }
+
+    .ag-card-h {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(.95rem, 1.5vw, 1.2rem);
+      font-weight: 400;
+      color: var(--fg);
+      line-height: 1.2;
+      margin-bottom: .9rem;
+    }
+
+    .ag-card-desc {
+      font-size: .7rem;
+      color: rgba(245,240,232,.22);
+      line-height: 1.7;
+      transition: color .35s ease;
+    }
+
+    .ag-card:hover .ag-card-desc,
+    .ag-card.ag-selected .ag-card-desc { color: rgba(245,240,232,.44); }
+
+    .ag-secret {
+      margin: 16vh auto 0;
+      max-width: 480px;
+    }
+
+    .ag-secret-label {
+      font-size: .47rem;
+      letter-spacing: .32em;
+      text-transform: uppercase;
+      color: rgba(199,93,60,.48);
+      margin-bottom: 1.25rem;
+    }
+
+    .ag-coords {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.1rem, 2.5vw, 1.8rem);
+      font-weight: 400;
+      letter-spacing: .2em;
+      color: rgba(245,240,232,.18);
+      margin-bottom: 1.1rem;
+    }
+
+    .ag-redact-line {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: .55rem;
+      flex-wrap: wrap;
+      font-size: .78rem;
+      color: rgba(245,240,232,.14);
+      letter-spacing: .06em;
+    }
+
+    .ag-redact {
+      display: inline-block;
+      background: rgba(199,93,60,.72);
+      color: transparent;
+      border-radius: 1px;
+      padding: .08em .22em;
+      user-select: none;
+    }
+
+    .ag-cta { margin-top: 12vh; }
+
+    .ag-btn {
+      background: none;
+      border: 1px solid rgba(199,93,60,.32);
+      color: rgba(199,93,60,.82);
+      font-family: 'Inter', sans-serif;
+      font-size: .58rem;
+      font-weight: 400;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      padding: 1.1rem 3.5rem;
+      cursor: pointer;
+      transition: border-color .35s ease, color .35s ease, box-shadow .35s ease;
+    }
+
+    .ag-btn:hover {
+      border-color: rgba(199,93,60,.72);
+      color: var(--fg);
+      box-shadow: 0 0 22px rgba(199,93,60,.14);
+    }
+
+    .ag-btn:focus-visible {
+      outline: 1px solid rgba(199,93,60,.5);
+      outline-offset: 6px;
+    }
+
+    /* Afterglow reveal animations */
+    .ag-rv {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 1.4s ease, transform 1.4s ease;
+    }
+    .ag-rv.on { opacity: 1; transform: translateY(0); }
+    .ag-rv.d1 { transition-delay: .15s; }
+    .ag-rv.d2 { transition-delay: .32s; }
+    .ag-rv.d3 { transition-delay: .5s; }
+    .ag-rv.d4 { transition-delay: .68s; }
+
+    .ag-entry-rv {
+      opacity: 0;
+      transform: scale(.985);
+      filter: blur(6px);
+      transition: opacity 2.2s ease, transform 2.2s ease, filter 2s ease;
+    }
+    .ag-entry-rv.on { opacity: 1; transform: scale(1); filter: blur(0); }
+
+    @media (max-width: 900px) {
+      .ag-modalities { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 640px) {
+      #afterglow { padding: 20vh 5vw 22vh; }
+      .ag-modalities { grid-template-columns: 1fr; max-width: 100%; }
+      .ag-steps { flex-direction: column; align-items: center; gap: 3.5rem; }
+      .ag-step { min-width: 0; max-width: 340px; width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="cvs" aria-hidden="true"></canvas>
+
+<!-- ── HEADER ──────────────────────────────────────────── -->
+<header>
+  <a href="index.html" class="wordmark" style="opacity:1" aria-label="TheSetUp — volver al inicio">TheSetUp</a>
+  <nav class="lang" aria-label="Language / Idioma">
+    <button class="lang-btn on" data-lang="en" aria-label="Switch to English" aria-pressed="true">EN</button>
+    <span class="lang-sep" aria-hidden="true">·</span>
+    <button class="lang-btn" data-lang="es" aria-label="Cambiar a español" aria-pressed="false">ES</button>
+  </nav>
+</header>
+
+<!-- ── AFTERGLOW ────────────────────────────────────────── -->
+<section id="afterglow" aria-label="Afterglow">
+
+  <!-- 1 · Entrada -->
+  <div class="ag-entry-rv" id="ag-entry">
+    <h1 class="ag-title">Afterglow</h1>
+    <div class="ag-rule" aria-hidden="true"></div>
+    <p class="ag-tagline"
+       data-en="A secret place. One single night. An experience that never repeats."
+       data-es="Un lugar secreto. Una sola noche. Una experiencia que no se repite.">A secret place. One single night. An experience that never repeats.</p>
+  </div>
+
+  <!-- 2 · Concepto -->
+  <div class="ag-concept ag-rv d1">
+    <p data-en="Secret experiences designed in locations that normally remain closed. No itinerary, no advance photos. You only find out where you are going when you arrive. The mystery is not a detail — it is the whole product."
+       data-es="Experiencias diseñadas en secreto, en lugares que normalmente permanecen cerrados. Sin itinerario, sin fotos previas. Solo sabes adónde vas cuando llegas. El misterio no es un detalle — es el producto.">Secret experiences designed in locations that normally remain closed. No itinerary, no advance photos. You only find out where you are going when you arrive. The mystery is not a detail — it is the whole product.</p>
+  </div>
+
+  <!-- 3 · Cómo funciona -->
+  <div class="ag-steps">
+    <div class="ag-step ag-rv d1">
+      <span class="ag-step-n" aria-hidden="true">01</span>
+      <h2 class="ag-step-h" data-en="Book blind" data-es="Reservas a ciegas">Book blind</h2>
+      <p class="ag-step-note"
+         data-en="Trust your night without knowing the destination."
+         data-es="Confías tu noche sin saber el destino.">Trust your night without knowing the destination.</p>
+    </div>
+    <div class="ag-step ag-rv d2">
+      <span class="ag-step-n" aria-hidden="true">02</span>
+      <h2 class="ag-step-h" data-en="Follow the clues" data-es="Recibes pistas">Follow the clues</h2>
+      <p class="ag-step-note"
+         data-en="The secret unfolds little by little."
+         data-es="El secreto se desvela poco a poco.">The secret unfolds little by little.</p>
+    </div>
+    <div class="ag-step ag-rv d3">
+      <span class="ag-step-n" aria-hidden="true">03</span>
+      <h2 class="ag-step-h" data-en="Live it" data-es="Lo vives">Live it</h2>
+      <p class="ag-step-note"
+         data-en="You discover the place only when you arrive."
+         data-es="Descubres el lugar solo al llegar.">You discover the place only when you arrive.</p>
+    </div>
+  </div>
+
+  <!-- 4 · Modalidades -->
+  <div class="ag-modalities ag-rv d2" role="group" aria-label="Afterglow modalities">
+    <article class="ag-card" tabindex="0"
+             data-modality-en="Secret tastings" data-modality-es="Catas secretas">
+      <span class="ag-card-n" aria-hidden="true">I</span>
+      <h3 class="ag-card-h" data-en="Secret tastings" data-es="Catas secretas">Secret tastings</h3>
+      <p class="ag-card-desc"
+         data-en="Wine and spirits in places that appear on no map."
+         data-es="Vino y destilados en lugares que no aparecen en ningún mapa.">Wine and spirits in places that appear on no map.</p>
+    </article>
+    <article class="ag-card" tabindex="0"
+             data-modality-en="Forbidden dinners" data-modality-es="Cenas prohibidas">
+      <span class="ag-card-n" aria-hidden="true">II</span>
+      <h3 class="ag-card-h" data-en="Forbidden dinners" data-es="Cenas prohibidas">Forbidden dinners</h3>
+      <p class="ag-card-desc"
+         data-en="Tables in spaces with restricted access."
+         data-es="Mesas en espacios de acceso restringido.">Tables in spaces with restricted access.</p>
+    </article>
+    <article class="ag-card" tabindex="0"
+             data-modality-en="Sunset aboard" data-modality-es="Sunset a bordo">
+      <span class="ag-card-n" aria-hidden="true">III</span>
+      <h3 class="ag-card-h" data-en="Sunset aboard" data-es="Sunset a bordo">Sunset aboard</h3>
+      <p class="ag-card-desc"
+         data-en="A voyage at dusk toward a destination you only know when you set sail."
+         data-es="Una travesía al atardecer hacia un destino que solo conoces al zarpar.">A voyage at dusk toward a destination you only know when you set sail.</p>
+    </article>
+    <article class="ag-card" tabindex="0"
+             data-modality-en="Carte blanche" data-modality-es="Carta blanca">
+      <span class="ag-card-n" aria-hidden="true">IV</span>
+      <h3 class="ag-card-h" data-en="Carte blanche" data-es="Carta blanca">Carte blanche</h3>
+      <p class="ag-card-desc"
+         data-en="You choose nothing. Trust your night entirely and we design something unrepeatable."
+         data-es="No eliges formato; confías tu noche por completo y diseñamos algo irrepetible.">You choose nothing. Trust your night entirely and we design something unrepeatable.</p>
+    </article>
+  </div>
+
+  <!-- 5 · Localización censurada -->
+  <div class="ag-secret ag-rv d3">
+    <p class="ag-secret-label"
+       data-en="Next location"
+       data-es="Próxima localización">Next location</p>
+    <p class="ag-coords" aria-label="Hidden coordinates">36°16′N · 5°22′W</p>
+    <p class="ag-redact-line" aria-hidden="true">
+      <span class="ag-redact">███████████</span>
+      <span>de</span>
+      <span class="ag-redact">████████</span>
+    </p>
+  </div>
+
+  <!-- 6 · CTA -->
+  <div class="ag-cta ag-rv d4">
+    <button class="ag-btn" id="ag-access-btn"
+            data-en="Request access"
+            data-es="Solicita acceso">Request access</button>
+  </div>
+
+</section>
+
+<!-- ── CONTACT CTA ──────────────────────────────────────── -->
+<section class="contact-cta" aria-label="Contacto">
+  <span class="cta-eyebrow"
+        data-en="Interested?"
+        data-es="¿Interesado?">Interested?</span>
+  <p class="cta-h rv"
+     data-en="Every night begins with a message."
+     data-es="Cada noche empieza con un mensaje.">Every night begins with a message.</p>
+  <a href="index.html#contact" class="cta-btn rv d1"
+     data-en="Get in touch"
+     data-es="Escríbenos">Get in touch</a>
+</section>
+
+<!-- ── FOOTER ──────────────────────────────────────────── -->
+<footer>
+  <a href="index.html" class="ft-w" style="text-decoration:none">TheSetUp</a>
+  <span class="ft-c">© 2025 · Sotogrande</span>
+</footer>
+
+
+<script>
+'use strict';
+
+/* ══ LANGUAGE ══════════════════════════════════════════ */
+const LANGS = ['en', 'es'];
+let lang = localStorage.getItem('tsu-lang') || 'en';
+if (!LANGS.includes(lang)) lang = 'en';
+
+function applyLang(l) {
+  lang = l;
+  document.documentElement.lang = l;
+  localStorage.setItem('tsu-lang', l);
+  document.querySelectorAll('[data-en]').forEach(el => { el.textContent = el.dataset[l]; });
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    const active = btn.dataset.lang === l;
+    btn.classList.toggle('on', active);
+    btn.setAttribute('aria-pressed', active.toString());
+  });
+}
+
+applyLang(lang);
+document.querySelectorAll('.lang-btn').forEach(btn => {
+  btn.addEventListener('click', () => applyLang(btn.dataset.lang));
+});
+
+/* ══ PARTICLES ══════════════════════════════════════════ */
+(function particles() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const cvs = document.getElementById('cvs');
+  const ctx = cvs.getContext('2d');
+  const mob = window.innerWidth < 640;
+  const N   = mob ? 20 : 55;
+  const CD  = 100;
+  let W, H, sp = 0, pmx = null, pmy = null;
+  const pts = [];
+
+  function resize() { W = cvs.width = window.innerWidth; H = cvs.height = window.innerHeight; }
+  resize();
+  window.addEventListener('resize', resize, { passive: true });
+  document.addEventListener('mousemove', e => { pmx = e.clientX; pmy = e.clientY; }, { passive: true });
+
+  for (let i = 0; i < N; i++) {
+    const vx = (Math.random() - .5) * .22, vy = (Math.random() - .5) * .22;
+    pts.push({ x: Math.random()*W, y: Math.random()*H, r: Math.random()*1.3+.3,
+               vx, vy, bvx: vx, bvy: vy, maxA: Math.random()*.35+.05, a: 0 });
+  }
+
+  function frame() {
+    ctx.clearRect(0, 0, W, H);
+    for (const p of pts) {
+      if (pmx !== null) {
+        const dx = pmx-p.x, dy = pmy-p.y, d2 = dx*dx+dy*dy;
+        if (d2 < 12100) { const f=(1-Math.sqrt(d2)/110)*.0032; p.vx-=dx*f; p.vy-=dy*f; }
+      }
+      p.vx += (p.bvx-p.vx)*.04; p.vy += (p.bvy-p.vy)*.04;
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0) p.x = W; else if (p.x > W) p.x = 0;
+      if (p.y < 0) p.y = H; else if (p.y > H) p.y = 0;
+      const tgt = p.maxA * Math.max(.08, sp * 1.6);
+      p.a += (Math.min(tgt, p.maxA) - p.a) * .02;
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.2832);
+      ctx.fillStyle = `rgba(199,93,60,${p.a})`; ctx.fill();
+    }
+    if (!mob) {
+      for (let i = 0; i < pts.length; i++) for (let j = i+1; j < pts.length; j++) {
+        const dx=pts[i].x-pts[j].x, dy=pts[i].y-pts[j].y, d=Math.sqrt(dx*dx+dy*dy);
+        if (d < CD) {
+          const a = (1-d/CD)*.07*sp;
+          if (a < .003) continue;
+          ctx.beginPath(); ctx.moveTo(pts[i].x, pts[i].y); ctx.lineTo(pts[j].x, pts[j].y);
+          ctx.strokeStyle = `rgba(199,93,60,${a})`; ctx.lineWidth = .4; ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(frame);
+  }
+  frame();
+  window._pScroll = v => { sp = v; };
+})();
+
+/* ══ SCROLL ════════════════════════════════════════════ */
+let raf = false;
+function onScroll() {
+  if (raf) return; raf = true;
+  requestAnimationFrame(() => {
+    const maxH = document.documentElement.scrollHeight - window.innerHeight;
+    const prog = maxH > 0 ? Math.min(window.scrollY / maxH, 1) : 0;
+    document.documentElement.style.setProperty('--s', prog);
+    const w = Math.round(prog * 9);
+    document.body.style.backgroundColor = `rgb(${13+w},${13+Math.round(w*.45)},13)`;
+    if (window._pScroll) window._pScroll(prog);
+    raf = false;
+  });
+}
+window.addEventListener('scroll', onScroll, { passive: true });
+onScroll();
+
+/* ══ SCROLL REVEAL ════════════════════════════════════ */
+const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const agEntry = document.getElementById('ag-entry');
+const agRvEls = document.querySelectorAll('.ag-rv');
+
+if (reduced) {
+  if (agEntry) agEntry.classList.add('on');
+  agRvEls.forEach(el => el.classList.add('on'));
+  document.querySelectorAll('.rv').forEach(el => el.classList.add('on'));
+} else {
+  const agObs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); agObs.unobserve(e.target); } });
+  }, { threshold: .08 });
+  if (agEntry) agObs.observe(agEntry);
+  agRvEls.forEach(el => agObs.observe(el));
+
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); obs.unobserve(e.target); } });
+  }, { threshold: .1 });
+  document.querySelectorAll('.rv').forEach(el => obs.observe(el));
+}
+
+/* ══ CARD SELECTION ═══════════════════════════════════ */
+let sel = null;
+document.querySelectorAll('.ag-card').forEach(card => {
+  const toggle = () => {
+    if (sel === card) {
+      card.classList.remove('ag-selected'); card.removeAttribute('aria-pressed'); sel = null;
+    } else {
+      if (sel) { sel.classList.remove('ag-selected'); sel.removeAttribute('aria-pressed'); }
+      card.classList.add('ag-selected'); card.setAttribute('aria-pressed', 'true'); sel = card;
+    }
+  };
+  card.addEventListener('click', toggle);
+  card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
+});
+
+/* ══ CTA → Contact (home) ════════════════════════════ */
+const agBtn = document.getElementById('ag-access-btn');
+if (agBtn) {
+  agBtn.addEventListener('click', () => {
+    let href = 'index.html#contact';
+    if (sel) {
+      const l  = document.documentElement.lang || 'en';
+      const mn = l === 'es' ? sel.dataset.modalityEs : sel.dataset.modalityEn;
+      if (mn) href += '?m=' + encodeURIComponent(mn);
+    }
+    window.location.href = href;
+  });
+}
+</script>
+</body>
+</html>
